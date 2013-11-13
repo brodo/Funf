@@ -134,10 +134,8 @@ public class PipelineFactory implements RuntimeTypeAdapterFactory {
             ConfigRewriteUtil.rewrite(el);
             
             Log.d(LogUtil.TAG, el.toString());
-            
-            T result = delegateAdapter.read(new JsonTreeReader(el));
 
-            return result;
+            return delegateAdapter.read(new JsonTreeReader(el));
         }
     }
 

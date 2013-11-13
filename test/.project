@@ -34,7 +34,7 @@
 		<link>
 			<name>funf_src</name>
 			<type>2</type>
-			<locationURI>_android_funf_3022c7/src</locationURI>
+			<locationURI>../src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

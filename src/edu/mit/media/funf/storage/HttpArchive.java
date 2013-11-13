@@ -133,7 +133,7 @@ public class HttpArchive implements RemoteFileArchive {
 		}
 	    return true;
 		*/
-		return IOUtil.isValidUrl(url) ? uploadFile(file, url) : false;
+		return IOUtil.isValidUrl(url) && uploadFile(file, url);
 	}
 	
 	/**

@@ -23,13 +23,6 @@
  */
 package edu.mit.media.funf;
 
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -40,37 +33,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
-import android.os.Binder;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
+import android.os.*;
 import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.google.gson.TypeAdapterFactory;
-
+import com.google.gson.*;
 import edu.mit.media.funf.Schedule.BasicSchedule;
 import edu.mit.media.funf.Schedule.DefaultSchedule;
 import edu.mit.media.funf.action.Action;
-import edu.mit.media.funf.config.ConfigUpdater;
-import edu.mit.media.funf.config.ConfigurableTypeAdapterFactory;
-import edu.mit.media.funf.config.ContextInjectorTypeAdapaterFactory;
-import edu.mit.media.funf.config.DefaultRuntimeTypeAdapterFactory;
-import edu.mit.media.funf.config.DefaultScheduleSerializer;
-import edu.mit.media.funf.config.HttpConfigUpdater;
-import edu.mit.media.funf.config.ListenerInjectorTypeAdapterFactory;
-import edu.mit.media.funf.config.SingletonTypeAdapterFactory;
+import edu.mit.media.funf.config.*;
 import edu.mit.media.funf.datasource.Startable;
-import edu.mit.media.funf.datasource.StartableDataSource;
 import edu.mit.media.funf.pipeline.Pipeline;
 import edu.mit.media.funf.pipeline.PipelineFactory;
 import edu.mit.media.funf.probe.Probe;
@@ -81,6 +51,9 @@ import edu.mit.media.funf.storage.HttpArchive;
 import edu.mit.media.funf.storage.RemoteFileArchive;
 import edu.mit.media.funf.util.LogUtil;
 import edu.mit.media.funf.util.StringUtil;
+
+import java.lang.reflect.Type;
+import java.util.*;
 
 public class FunfManager extends Service {
 

@@ -25,6 +25,8 @@
  */
 package edu.mit.media.funf.pipeline;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,10 +80,10 @@ public class BasicPipeline implements Pipeline, DataListener {
     protected ConfigUpdater update = null;
     
     @Configurable
-    protected List<StartableDataSource> data = null;
+    protected List<StartableDataSource> data = new ArrayList<StartableDataSource>();
     
     @Configurable
-    protected Map<String, StartableDataSource> schedules = null;
+    protected Map<String, StartableDataSource> schedules = new HashMap<String, StartableDataSource>();
     
     public UploadService uploader;
     
@@ -102,45 +104,43 @@ public class BasicPipeline implements Pipeline, DataListener {
         return (IJsonObject)JsonUtils.immutable(
                 getFunfManager().getGson().toJsonTree(probe));
     }
-    
+
     protected void setupDataSources() {
         if (!enabled) {
-            
-            for (StartableDataSource dataSource: data) {
+            for (StartableDataSource dataSource : data) {
                 dataSource.setListener(writeAction);
             }
-            
-            if (schedules != null) {
-                if (schedules.containsKey("archive")) {
-                    DataListener archiveListener = new ActionAdapter(archiveAction);
-                    schedules.get("archive").setListener(archiveListener);
-                    schedules.get("archive").start();
-                }
-                
-                if (schedules.containsKey("upload")) {
-                    DataListener uploadListener = new ActionAdapter(uploadAction);
-                    schedules.get("upload").setListener(uploadListener);
-                    schedules.get("upload").start();
-                }
-                
-                if (schedules.containsKey("update")) {
-                    DataListener updateListener = new ActionAdapter(updateAction);
-                    schedules.get("update").setListener(updateListener);
-                    schedules.get("update").start();
-                }
+
+
+            if (schedules.containsKey("archive")) {
+                DataListener archiveListener = new ActionAdapter(archiveAction);
+                schedules.get("archive").setListener(archiveListener);
+                schedules.get("archive").start();
             }
-            
-            for (StartableDataSource dataSource: data) {
+
+            if (schedules.containsKey("upload")) {
+                DataListener uploadListener = new ActionAdapter(uploadAction);
+                schedules.get("upload").setListener(uploadListener);
+                schedules.get("upload").start();
+            }
+
+            if (schedules.containsKey("update")) {
+                DataListener updateListener = new ActionAdapter(updateAction);
+                schedules.get("update").setListener(updateListener);
+                schedules.get("update").start();
+            }
+
+
+            for (StartableDataSource dataSource : data) {
                 dataSource.start();
             }
-            
+
             enabled = true;
         }
     }
 
     private void destroyDataSources() {
         if (enabled) {
-            
             for (StartableDataSource dataSource: data) {
                 dataSource.stop();
             }

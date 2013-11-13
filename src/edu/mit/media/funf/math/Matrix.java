@@ -927,7 +927,7 @@ public class Matrix
       int n = v.size();  // Now we've got the number of columns!
       double row[] = new double[n];
       for (int j=0; j<n; j++)  // extract the elements of the 1st row.
-         row[j]=((Double)v.elementAt(j)).doubleValue();
+         row[j]= (Double) v.elementAt(j);
       v.removeAllElements();
       v.addElement(row);  // Start storing rows instead of columns.
       while (tokenizer.nextToken() == StreamTokenizer.TT_WORD) {
@@ -937,7 +937,7 @@ public class Matrix
          do {
             if (j >= n) throw new java.io.IOException
                ("Row " + v.size() + " is too long.");
-            row[j++] = Double.valueOf(tokenizer.sval).doubleValue();
+            row[j++] = Double.valueOf(tokenizer.sval);
          } while (tokenizer.nextToken() == StreamTokenizer.TT_WORD);
          if (j < n) throw new java.io.IOException
             ("Row " + v.size() + " is too short.");

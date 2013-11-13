@@ -149,7 +149,6 @@ public class ListenerInjectorTypeAdapterFactory implements TypeAdapterFactory {
                     
                     if (value instanceof DataSource) {
                         ((DataSource)value).setListener(listener);
-                        return;
                     }
                 }
 

@@ -46,7 +46,7 @@ public class StringUtil {
 		if (strings.isEmpty()) {
 			return "";
 		}
-		StringBuffer joined = new StringBuffer();
+		StringBuilder joined = new StringBuilder();
 		Iterator<?> stringIter = strings.iterator();
 		joined.append(stringIter.next().toString());
 		while (stringIter.hasNext()) {

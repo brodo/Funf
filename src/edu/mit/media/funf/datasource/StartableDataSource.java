@@ -35,7 +35,7 @@ public class StartableDataSource implements Startable, DataSource {
     public static enum State {
         OFF,
         ON
-    };
+    }
 
     protected State currentState = State.OFF;
 

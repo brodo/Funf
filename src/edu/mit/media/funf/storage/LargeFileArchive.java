@@ -68,10 +68,7 @@ public class LargeFileArchive extends DefaultArchive implements FileArchive {
 	    if (extension == null)
 	        return false;
 	    String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-	    if (type == null || "".equals(type) || "null".equals(type))
-	        return false;
-	    else 
-	        return true;
+        return !(type == null || "".equals(type) || "null".equals(type));
 	}
 
 	@Override

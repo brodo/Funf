@@ -173,9 +173,9 @@ public abstract class TimeUnit implements java.io.Serializable {
      *         if this enum type has no constant with the specified name
      */
     public static TimeUnit valueOf(String name) {
-        for (int i = 0; i < values.length; i++) {
-            if (values[i].name.equals(name)) {
-                return values[i];
+        for (TimeUnit value : values) {
+            if (value.name.equals(name)) {
+                return value;
             }
         }
         throw new IllegalArgumentException("No enum const TimeUnit." + name);
