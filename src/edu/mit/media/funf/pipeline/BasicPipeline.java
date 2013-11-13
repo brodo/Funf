@@ -83,11 +83,11 @@ public class BasicPipeline implements Pipeline, DataListener {
     @Configurable
     protected Map<String, StartableDataSource> schedules = null;
     
-    private UploadService uploader;    
+    public UploadService uploader;
     
     private boolean enabled;
     private FunfManager manager;
-    private SQLiteOpenHelper databaseHelper = null;
+    public SQLiteOpenHelper databaseHelper = null;
     private Looper looper;
     private Handler handler;
     
@@ -95,54 +95,36 @@ public class BasicPipeline implements Pipeline, DataListener {
     private RunArchiveAction archiveAction;
     private RunUploadAction uploadAction;
     private RunUpdateAction updateAction;
-    
-//    private class DataRequestInfo {
-//        private DataListener listener;
-//        private JsonElement checkpoint;
-//    }
-//
-//    private StateListener probeStateListener = new StateListener() {
-//        @Override
-//        public void onStateChanged(Probe probe, State previousState) {
-//            if (probe instanceof ContinuableProbe && previousState == State.RUNNING) {
-//                JsonElement checkpoint = ((ContinuableProbe)probe).getCheckpoint();
-//                IJsonObject config = (IJsonObject)JsonUtils.immutable(getFunfManager().getGson().toJsonTree(probe));
-//                for (DataRequestInfo requestInfo : activeDataRequests.get(config)) {
-//                    requestInfo.checkpoint = checkpoint;
-//                }
-//            }
-//        }
-//    };
+
     
     public IJsonObject getImmutableProbeConfig(String probeConfig) {
         Probe probe = getFunfManager().getGson().fromJson(probeConfig, Probe.class);
-        IJsonObject probeJson = (IJsonObject)JsonUtils.immutable(
+        return (IJsonObject)JsonUtils.immutable(
                 getFunfManager().getGson().toJsonTree(probe));
-        return probeJson;
     }
     
     protected void setupDataSources() {
-        if (enabled == false) {
+        if (!enabled) {
             
             for (StartableDataSource dataSource: data) {
-                dataSource.setListener((DataListener)writeAction);
+                dataSource.setListener(writeAction);
             }
             
             if (schedules != null) {
                 if (schedules.containsKey("archive")) {
-                    DataListener archiveListener = (DataListener)new ActionAdapter(archiveAction);
+                    DataListener archiveListener = new ActionAdapter(archiveAction);
                     schedules.get("archive").setListener(archiveListener);
                     schedules.get("archive").start();
                 }
                 
                 if (schedules.containsKey("upload")) {
-                    DataListener uploadListener = (DataListener)new ActionAdapter(uploadAction);
+                    DataListener uploadListener = new ActionAdapter(uploadAction);
                     schedules.get("upload").setListener(uploadListener);
                     schedules.get("upload").start();
                 }
                 
                 if (schedules.containsKey("update")) {
-                    DataListener updateListener = (DataListener)new ActionAdapter(updateAction);
+                    DataListener updateListener = new ActionAdapter(updateAction);
                     schedules.get("update").setListener(updateListener);
                     schedules.get("update").start();
                 }
@@ -157,7 +139,7 @@ public class BasicPipeline implements Pipeline, DataListener {
     }
 
     private void destroyDataSources() {
-        if (enabled == true) {
+        if (enabled) {
             
             for (StartableDataSource dataSource: data) {
                 dataSource.stop();
