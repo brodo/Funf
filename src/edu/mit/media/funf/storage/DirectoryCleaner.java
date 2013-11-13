@@ -60,8 +60,8 @@ public interface DirectoryCleaner {
 					// Sort descending by last modified time
 					Arrays.sort(files, new DescendingByLastModifiedComaparator());
 					// Delete all except the first numToKeep files
-					for (int i=numToKeep; i<files.length; i++) {
-						files[i].delete();
+					for (File file : files) {
+						file.delete();
 					}
 				}
 			}
@@ -110,10 +110,10 @@ public interface DirectoryCleaner {
 				long bytesToDelete = size(directory) - maxBytesToKeep;
 				if (bytesToDelete > 0) {
 					Arrays.sort(files, new DescendingByLastModifiedComaparator());
-					for (int i=files.length; i>=0; i--) {
+					for (File file : files) {
 						if (bytesToDelete > 0) {
-							bytesToDelete -= size(files[i]);
-							files[i].delete();
+							bytesToDelete -= size(file);
+							file.delete();
 						}
 					}
 				}
