@@ -23,7 +23,7 @@ package edu.mit.media.funf.probe.builtin;
 
 import android.os.Bundle;
 import android.util.Log;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
 
 public class HardwareInfoProbeTest extends ProbeTestCase<HardwareInfoProbe> {
 

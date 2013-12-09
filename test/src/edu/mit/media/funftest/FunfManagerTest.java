@@ -1,8 +1,7 @@
-package edu.mit.media.funf;
+package edu.mit.media.funftest;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,16 +10,11 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.test.AndroidTestCase;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.internal.LazilyParsedNumber;
 
-import edu.mit.media.funf.json.IJsonArray;
+import edu.mit.media.funf.FunfManager;
 import edu.mit.media.funf.json.IJsonObject;
-import edu.mit.media.funf.json.JsonUtils;
-import edu.mit.media.funf.probe.Probe;
 import edu.mit.media.funf.probe.Probe.DataListener;
 import edu.mit.media.funf.probe.builtin.AccelerometerFeaturesProbe;
 

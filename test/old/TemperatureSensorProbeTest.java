@@ -23,7 +23,7 @@ package edu.mit.media.funf.probe.builtin;
 
 import junit.framework.AssertionFailedError;
 import android.os.Bundle;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
 import edu.mit.media.funf.probe.Probe.Parameter;
 
 public class TemperatureSensorProbeTest extends ProbeTestCase<TemperatureSensorProbe> {

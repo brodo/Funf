@@ -1,4 +1,4 @@
-package edu.mit.media.funf;
+package edu.mit.media.funftest;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -7,6 +7,8 @@ import java.util.Queue;
 
 import android.test.AndroidTestCase;
 
+import edu.mit.media.funf.FunfManager;
+import edu.mit.media.funf.Schedule;
 import edu.mit.media.funf.config.ConfigRewriteUtil;
 
 import com.google.gson.Gson;
@@ -14,7 +16,6 @@ import com.google.gson.JsonElement;
 
 import edu.mit.media.funf.config.Configurable;
 import edu.mit.media.funf.pipeline.Pipeline;
-import edu.mit.media.funf.pipeline.PipelineFactory;
 
 public class TestPipeline extends AndroidTestCase {
 	

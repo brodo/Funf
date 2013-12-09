@@ -1,4 +1,4 @@
-package edu.mit.media.funf.probe;
+package edu.mit.media.funftest.probe;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

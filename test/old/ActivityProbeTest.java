@@ -26,7 +26,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.util.Log;
 import edu.mit.media.funf.probe.Probe;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
 import edu.mit.media.funf.probe.Probe.Parameter;
 
 public class ActivityProbeTest extends ProbeTestCase<ActivityProbe> {

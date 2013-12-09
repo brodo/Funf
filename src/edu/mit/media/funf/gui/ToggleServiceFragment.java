@@ -13,14 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import edu.mit.media.funf.FunfManager;
 import edu.mit.media.funf.R;
 import edu.mit.media.funf.pipeline.Pipeline;
-import edu.mit.media.funf.pipeline.UserInfoPipeline;
-import edu.mit.media.funf.probe.builtin.SimpleLocationProbe;
-import edu.mit.media.funf.probe.builtin.WifiProbe;
 import edu.mit.media.funf.util.LogUtil;
 
 /**
@@ -40,7 +35,7 @@ public class ToggleServiceFragment extends Fragment {
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.d(LogUtil.TAG, "Service connected");
             funfManager = ((FunfManager.LocalBinder)service).getManager();
-            pipeline = (UserInfoPipeline) funfManager.getRegisteredPipeline("default");
+            pipeline = funfManager.getRegisteredPipeline("default");
 
             toggleButton.setChecked(pipeline.isEnabled());
 

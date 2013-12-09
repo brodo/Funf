@@ -77,7 +77,7 @@ public class Action implements Runnable {
         if (handler == null) {
             synchronized (this) {
                 if (looper == null) {
-                    HandlerThread thread = new HandlerThread("Action[" + getClass().getName() + "]");
+                    HandlerThread thread = new HandlerThread("Action[" + ((Object)this).getClass().getName() + "]");
                     thread.start();
                     looper = thread.getLooper();
                     handler = new Handler(looper);

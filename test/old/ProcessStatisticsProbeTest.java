@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
 import edu.mit.media.funf.probe.Probe.Parameter;
 import edu.mit.media.funf.tests.JsonUtils;
 

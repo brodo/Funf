@@ -1,4 +1,4 @@
-package edu.mit.media.funf.probe;
+package edu.mit.media.funftest.probe;
 
 import android.test.AndroidTestCase;
 
@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import edu.mit.media.funf.FunfManager;
+import edu.mit.media.funf.probe.Probe;
 
 
 public class ProbeTestCase<T extends Probe> extends AndroidTestCase {

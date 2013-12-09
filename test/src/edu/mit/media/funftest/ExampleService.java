@@ -1,4 +1,4 @@
-package edu.mit.media.funf.tests;
+package edu.mit.media.funftest;
 
 import java.util.Map;
 

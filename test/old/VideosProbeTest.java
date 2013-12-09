@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
 import edu.mit.media.funf.probe.Probe.Parameter;
 
 public class VideosProbeTest extends ProbeTestCase<VideosProbe> {

@@ -1,10 +1,11 @@
-package edu.mit.media.funf.probe;
+package edu.mit.media.funftest.probe;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import android.test.AndroidTestCase;
+import edu.mit.media.funf.probe.Probe;
 
 public class ProbeTest extends AndroidTestCase {
 

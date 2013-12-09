@@ -1,4 +1,4 @@
-package edu.mit.media.funf.pipeline;
+package edu.mit.media.funftest.pipeline;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.test.AndroidTestCase;
 import android.util.Log;
 import edu.mit.media.funf.FunfManager;
+import edu.mit.media.funf.pipeline.Pipeline;
 import edu.mit.media.funf.tests.R;
 
 public class BasicPipelineTest extends AndroidTestCase {
@@ -26,7 +27,6 @@ public class BasicPipelineTest extends AndroidTestCase {
     @Override
     public void onServiceDisconnected(ComponentName name) {
       // TODO Auto-generated method stub
-      
     }
     
   };

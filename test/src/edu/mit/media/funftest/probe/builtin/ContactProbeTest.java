@@ -1,4 +1,4 @@
-package edu.mit.media.funf.probe.builtin;
+package edu.mit.media.funftest.probe.builtin;
 
 import android.util.Log;
 
@@ -7,12 +7,13 @@ import com.google.gson.JsonObject;
 
 import edu.mit.media.funf.json.IJsonObject;
 import edu.mit.media.funf.probe.Probe.DataListener;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
+import edu.mit.media.funf.probe.builtin.ContactProbe;
 
-public class TelephonyProbeTest extends ProbeTestCase<TelephonyProbe> {
+public class ContactProbeTest extends ProbeTestCase<ContactProbe> {
   
-  public TelephonyProbeTest() {
-    super(TelephonyProbe.class);
+  public ContactProbeTest() {
+    super(ContactProbe.class);
   }
 
   public static final String TAG = "Probes";
@@ -30,7 +31,7 @@ public class TelephonyProbeTest extends ProbeTestCase<TelephonyProbe> {
 };
   
   public void testProbe() throws InterruptedException {
-    TelephonyProbe probe = getProbe(new JsonObject());
+    ContactProbe probe = getProbe(new JsonObject());
     probe.registerListener(listener);
     Thread.sleep(100L);
   }

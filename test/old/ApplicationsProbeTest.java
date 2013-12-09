@@ -22,7 +22,7 @@
 package edu.mit.media.funf.probe.builtin;
 
 import edu.mit.media.funf.probe.Probe;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
 import android.os.Bundle;
 
 public class ApplicationsProbeTest extends ProbeTestCase<ApplicationsProbe> {

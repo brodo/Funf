@@ -1,4 +1,4 @@
-package edu.mit.media.funf.config;
+package edu.mit.media.funftest.config;
 
 import android.test.AndroidTestCase;
 
@@ -7,6 +7,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.mit.media.funf.config.Configurable;
+import edu.mit.media.funf.config.ConfigurableTypeAdapterFactory;
+import edu.mit.media.funf.config.DefaultRuntimeTypeAdapterFactory;
+import edu.mit.media.funf.config.SingletonTypeAdapterFactory;
 import edu.mit.media.funf.probe.Probe;
 
 public class TestConfigurableParsing extends AndroidTestCase {
@@ -57,7 +61,7 @@ public class TestConfigurableParsing extends AndroidTestCase {
 		Test2 test2 = (Test2)test;
 		assertTrue("Runtime type not created from nested config", test2.nested instanceof Test2);
 		assertEquals("Specified config was not set in nested configurable", 5, test2.nested.getPrivateField());
-		String expectedSerialized = "{\"@type\":\"edu.mit.media.funf.config.TestConfigurableParsing$Test2\",\"nested\":{\"@type\":\"edu.mit.media.funf.config.TestConfigurableParsing$Test2\",\"nested\":{\"@type\":\"edu.mit.media.funf.config.TestConfigurableParsing$Test1\",\"overridden\":1,\"privateField\":2},\"overridden\":1,\"privateField\":5},\"overridden\":5,\"privateField\":3}";
+		String expectedSerialized = "{\"@type\":\"TestConfigurableParsing$Test2\",\"nested\":{\"@type\":\"TestConfigurableParsing$Test2\",\"nested\":{\"@type\":\"TestConfigurableParsing$Test1\",\"overridden\":1,\"privateField\":2},\"overridden\":1,\"privateField\":5},\"overridden\":5,\"privateField\":3}";
 		assertEquals("Configurable not serialized to json correctly", new JsonParser().parse(expectedSerialized), gson.toJsonTree(test));
 		
 	}

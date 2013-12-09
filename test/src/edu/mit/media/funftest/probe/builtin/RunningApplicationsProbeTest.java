@@ -1,4 +1,4 @@
-package edu.mit.media.funf.probe.builtin;
+package edu.mit.media.funftest.probe.builtin;
 
 import android.util.Log;
 
@@ -6,7 +6,8 @@ import com.google.gson.JsonElement;
 
 import edu.mit.media.funf.json.IJsonObject;
 import edu.mit.media.funf.probe.Probe.DataListener;
-import edu.mit.media.funf.probe.ProbeTestCase;
+import edu.mit.media.funftest.probe.ProbeTestCase;
+import edu.mit.media.funf.probe.builtin.RunningApplicationsProbe;
 
 public class RunningApplicationsProbeTest extends ProbeTestCase<RunningApplicationsProbe> implements DataListener {
 

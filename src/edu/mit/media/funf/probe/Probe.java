@@ -579,22 +579,22 @@ public interface Probe {
 			}
 		}
 
-		protected final void enable() {
+		public final void enable() {
 			ensureLooperThreadExists();
 			handler.sendMessage(handler.obtainMessage(ENABLE_MESSAGE));
 		}
 
-		protected final void start() {
+		public final void start() {
 			ensureLooperThreadExists();
 			handler.sendMessage(handler.obtainMessage(START_MESSAGE));
 		}
 
-		protected final void stop() {
+		public final void stop() {
 			ensureLooperThreadExists();
 			handler.sendMessage(handler.obtainMessage(STOP_MESSAGE));
 		}
 
-		protected final void disable() {
+		public final void disable() {
 			if (handler != null) {
 				handler.sendMessage(handler.obtainMessage(DISABLE_MESSAGE));
 			}

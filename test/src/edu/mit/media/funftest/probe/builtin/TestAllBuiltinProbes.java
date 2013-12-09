@@ -1,10 +1,11 @@
-package edu.mit.media.funf.probe.builtin;
+package edu.mit.media.funftest.probe.builtin;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import android.os.Debug;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
@@ -20,9 +21,16 @@ import edu.mit.media.funf.probe.Probe.ContinuousProbe;
 import edu.mit.media.funf.probe.Probe.DataListener;
 import edu.mit.media.funf.probe.Probe.State;
 import edu.mit.media.funf.probe.Probe.StateListener;
+import edu.mit.media.funf.probe.builtin.*;
 
 
-public class TestLocationProbes extends AndroidTestCase {
+/**
+ * This class turns on and off all of the builtin probes.  
+ * While it doesn't test any of the output, it does ensure that basic use of the probes does not crash the process.
+ * @author alangardner
+ *
+ */
+public class TestAllBuiltinProbes extends AndroidTestCase {
 
 	public static final String TAG = "FunfTest";
 	
@@ -38,6 +46,8 @@ public class TestLocationProbes extends AndroidTestCase {
 		}
 	};
 	
+	
+	
 	private StateListener stateListener = new StateListener() {
 
 		@Override
@@ -48,6 +58,7 @@ public class TestLocationProbes extends AndroidTestCase {
 		
 	};
 	
+
 	private Gson gson;
 	public Gson getGson() {
 		if (gson == null) {
@@ -58,21 +69,56 @@ public class TestLocationProbes extends AndroidTestCase {
 	
 	@SuppressWarnings("rawtypes")
 	public static final Class[] ALL_PROBES = {
+		AccelerometerFeaturesProbe.class,
+		AccelerometerSensorProbe.class,
+		ApplicationsProbe.class,
+		AudioFeaturesProbe.class,
+		AudioMediaProbe.class,
+		BatteryProbe.class,
+		BluetoothProbe.class,
+		BrowserBookmarksProbe.class,
+		BrowserSearchesProbe.class,
+		CallLogProbe.class,
+		CellTowerProbe.class,
+		ContactProbe.class,
+		GravitySensorProbe.class,
+		GyroscopeSensorProbe.class,
+		HardwareInfoProbe.class,
+		ImageMediaProbe.class,
+		LightSensorProbe.class,
+		LinearAccelerationSensorProbe.class,
 		LocationProbe.class,
-		SimpleLocationProbe.class
+		MagneticFieldSensorProbe.class,
+		OrientationSensorProbe.class,
+		PressureSensorProbe.class,
+		ProcessStatisticsProbe.class,
+		ProximitySensorProbe.class,
+		RotationVectorSensorProbe.class,
+		RunningApplicationsProbe.class,
+		ServicesProbe.class,
+		SimpleLocationProbe.class,
+		ScreenProbe.class,
+		SmsProbe.class,
+		TelephonyProbe.class,
+		TemperatureSensorProbe.class,
+		TimeOffsetProbe.class,
+		VideoMediaProbe.class,
+		WifiProbe.class
 	};
+	
 	
 	
 	@SuppressWarnings("unchecked")
 	public void testAll() throws ClassNotFoundException, IOException, InterruptedException {
 		Log.i(TAG,"Running");
+		Debug.startMethodTracing("calc");
 		List<Class<? extends Probe>> allProbeClasses = Arrays.asList((Class<? extends Probe>[])ALL_PROBES);
 		
 		// Run one at a time
 		Gson gson = getGson();
 		for (Class<? extends Probe> probeClass : allProbeClasses) {
 			JsonObject config = new JsonObject();
-			config.addProperty("maxWaitTime", 1);
+			config.addProperty("sensorDelay", SensorProbe.SENSOR_DELAY_NORMAL);
 			config.addProperty("asdf", 1);
 			config.addProperty("zzzz", "__");
 			Probe probe = gson.fromJson(config, probeClass);
@@ -86,12 +132,7 @@ public class TestLocationProbes extends AndroidTestCase {
 		// Run simultaneously
 		List<Probe> probes = new ArrayList<Probe>();
 		for (Class<? extends Probe> probeClass : allProbeClasses) {
-			JsonObject config = new JsonObject();
-			config.addProperty("maxWaitTime", 8);
-			config.addProperty("asdf", 1);
-			config.addProperty("zzzz", "__");
-			Probe probe = gson.fromJson(config, probeClass);
-			probes.add(probe);
+			probes.add(gson.fromJson(Probe.DEFAULT_CONFIG, probeClass));
 		}
 		for (Probe probe : probes) {
 			probe.addStateListener(stateListener);
@@ -105,5 +146,7 @@ public class TestLocationProbes extends AndroidTestCase {
 		}
 		
 		Thread.sleep(1000L); // Give probes time stop
+
+		Debug.stopMethodTracing();
 	}
 }
