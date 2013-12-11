@@ -71,19 +71,19 @@ public class BasicPipeline implements Pipeline, DataListener {
     protected int version = 1;
 
     @Configurable
-    protected FileArchive archive = null;
+    public FileArchive archive = null;
 
     @Configurable
-    protected RemoteFileArchive upload = null;
+    public RemoteFileArchive upload = null;
 
     @Configurable
-    protected ConfigUpdater update = null;
+    public ConfigUpdater update = null;
     
     @Configurable
-    protected List<StartableDataSource> data = new ArrayList<StartableDataSource>();
+    public List<StartableDataSource> data = new ArrayList<StartableDataSource>();
     
     @Configurable
-    protected Map<String, StartableDataSource> schedules = new HashMap<String, StartableDataSource>();
+    public Map<String, StartableDataSource> schedules = new HashMap<String, StartableDataSource>();
     
     public UploadService uploader;
     

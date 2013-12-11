@@ -64,6 +64,7 @@ public class StartableDataSource implements Startable, DataSource {
     public DataListener getDelegator() {
         return delegator;
     }
+    public DataListener getOutputListener(){return outputListener;}
 
     @Override
     public final void start() {
