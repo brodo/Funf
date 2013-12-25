@@ -25,28 +25,18 @@ package edu.mit.media.funf.config;
 
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.FieldNamingStrategy;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
+import com.google.gson.*;
 import com.google.gson.internal.ConstructorConstructor;
 import com.google.gson.internal.Excluder;
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 
 public class ConfigurableTypeAdapterFactory implements TypeAdapterFactory {
-	 private ReflectiveTypeAdapterFactory delegate;
-	 
-	 public ConfigurableTypeAdapterFactory() {
-		 delegate = new ReflectiveTypeAdapterFactory(
-				 new ConstructorConstructor(),
-				 new ConfigurableFieldNamingStrategy(), 
-				new Excluder().withExclusionStrategy(new ConfigurableExclusionStrategy(), true, true));
-	 }
 	 
 	 public class ConfigurableExclusionStrategy implements ExclusionStrategy {
 
@@ -77,6 +67,30 @@ public class ConfigurableTypeAdapterFactory implements TypeAdapterFactory {
 
 	@Override
 	public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+        ReflectiveTypeAdapterFactory delegate;
+        Map<Type, InstanceCreator<?>> m = new HashMap<Type, InstanceCreator<?>>();
+        m.put(type.getRawType(), new InstanceCreator<Object>() {
+            @Override
+            public Object createInstance(Type type) {
+                try {
+                    return type.getClass().getConstructor().newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        });
+        delegate = new ReflectiveTypeAdapterFactory(
+                new ConstructorConstructor(m),
+                new ConfigurableFieldNamingStrategy(),
+                new Excluder().withExclusionStrategy(new ConfigurableExclusionStrategy(), true, true));
+
 		return delegate.create(gson, type);
 	}
 	 

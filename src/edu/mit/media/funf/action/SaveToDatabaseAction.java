@@ -2,7 +2,7 @@ package edu.mit.media.funf.action;
 
 import android.util.Log;
 import com.google.gson.JsonElement;
-import edu.mit.media.funf.json.IJsonObject;
+import com.google.gson.IJsonObject;
 import edu.mit.media.funf.probe.Probe;
 import edu.mit.media.funf.util.LogUtil;
 

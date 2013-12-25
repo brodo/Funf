@@ -1,4 +1,6 @@
-package edu.mit.media.funf.json;
+package com.google.gson;
+
+import edu.mit.media.funf.json.JsonUtils;
 
 import java.util.Collections;
 import java.util.Map;
@@ -6,10 +8,6 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 /**
  * An immutable JsonObject that orders keys alphabetically for consistency in
@@ -26,7 +24,7 @@ public class IJsonObject extends JsonElement {
 	public IJsonObject(IJsonObject jsonObject) {
 		this.members = jsonObject.members;
 	}
-	
+
 	public IJsonObject(JsonObject jsonObject) {
 		if (jsonObject == null) {
 			throw new IllegalStateException("Cannot create null IJsonObject");
@@ -38,7 +36,6 @@ public class IJsonObject extends JsonElement {
 		members = Collections.unmodifiableSortedMap(map);
 	}
 
-    @Override
     JsonElement deepCopy() {
         return new IJsonObject(this);
     }
@@ -130,7 +127,7 @@ public class IJsonObject extends JsonElement {
 
 	@Override
 	public boolean equals(Object o) {
-		return (o == this) || (o instanceof IJsonObject 
+		return (o == this) || (o instanceof IJsonObject
 				&& ((IJsonObject) o).members.equals(members));
 	}
 
@@ -149,6 +146,4 @@ public class IJsonObject extends JsonElement {
 		}
 		return toStringCache;
 	}
-	
-	
 }

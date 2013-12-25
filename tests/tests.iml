@@ -18,19 +18,8 @@
     <orderEntry type="jdk" jdkName="Android 4.2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="FunfTestApp" scope="PROVIDED" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/gson-2.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../libs/gson-2.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="funf" />
-    <orderEntry type="library" name="gson-2.2.4-javadoc" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="gson-2.2.4-javadoc" level="project" />
   </component>
 </module>
 
