@@ -30,11 +30,13 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.util.Log;
 import com.google.gson.*;
 import com.google.gson.internal.ConstructorConstructor;
 import com.google.gson.internal.Excluder;
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import edu.mit.media.funf.util.LogUtil;
 
 public class ConfigurableTypeAdapterFactory implements TypeAdapterFactory {
 	 
@@ -49,6 +51,7 @@ public class ConfigurableTypeAdapterFactory implements TypeAdapterFactory {
 		public boolean shouldSkipClass(Class<?> clazz) {
 			return false;
 		}
+
 		 
 	 }
 
@@ -73,23 +76,26 @@ public class ConfigurableTypeAdapterFactory implements TypeAdapterFactory {
             @Override
             public Object createInstance(Type type) {
                 try {
-                    return type.getClass().getConstructor().newInstance();
+                    return ((Class)type).getConstructor().newInstance();
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    Log.e(LogUtil.TAG, e.getLocalizedMessage());
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    Log.e(LogUtil.TAG, e.getLocalizedMessage());
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+                    Log.e(LogUtil.TAG, e.getLocalizedMessage());
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    Log.e(LogUtil.TAG, e.getLocalizedMessage());
                 }
                 return null;
             }
         });
+
+
         delegate = new ReflectiveTypeAdapterFactory(
                 new ConstructorConstructor(m),
                 new ConfigurableFieldNamingStrategy(),
-                new Excluder().withExclusionStrategy(new ConfigurableExclusionStrategy(), true, true));
+                new Excluder()
+                    .withExclusionStrategy(new ConfigurableExclusionStrategy(), true, true));
 
 		return delegate.create(gson, type);
 	}

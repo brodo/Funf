@@ -38,10 +38,8 @@ public class CompositeDataSource extends StartableDataSource {
             
     @Configurable
     private boolean isEnabled = false;
-    
-    CompositeDataSource() {
-    }
-    
+
+
     protected void ensureIsEnabled() {
         if (!isEnabled) {
             if (filter == null) {

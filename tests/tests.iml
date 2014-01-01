@@ -19,7 +19,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="FunfTestApp" scope="PROVIDED" />
     <orderEntry type="module" module-name="funf" />
-    <orderEntry type="library" scope="PROVIDED" name="gson-2.2.4-javadoc" level="project" />
+    <orderEntry type="library" name="gson-2.2.4-javadoc" level="project" />
   </component>
 </module>
 

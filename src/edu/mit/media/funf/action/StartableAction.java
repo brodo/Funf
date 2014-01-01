@@ -14,9 +14,6 @@ public class StartableAction extends Action implements TriggerAction {
     
     @Configurable
     private Startable target = null;
-    
-    StartableAction() {
-    }
 
     public void setTarget(Startable target) {
         this.target = target;

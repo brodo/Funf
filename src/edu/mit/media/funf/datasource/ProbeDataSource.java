@@ -34,9 +34,6 @@ public class ProbeDataSource extends StartableDataSource {
     @Configurable
     protected Probe source;
     
-    ProbeDataSource() {
-    }
-    
     @Override
     protected void onStart() {
         source.registerListener(delegator);

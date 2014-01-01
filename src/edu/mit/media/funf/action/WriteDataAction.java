@@ -20,10 +20,7 @@ public class WriteDataAction extends Action implements DataListener {
 
     @Configurable
     private SQLiteOpenHelper dbHelper = null;
-        
-    WriteDataAction() {
-    }
-    
+
     public WriteDataAction(SQLiteOpenHelper dbHelper) {
         this.dbHelper = dbHelper;
     }

@@ -10,9 +10,7 @@ public class StopDataSourceAction extends Action implements TriggerAction {
     
     @Configurable
     private Startable target = null;
-    
-    StopDataSourceAction() {
-    }
+
 
     public void setTarget(Startable target) {
         this.target = target;

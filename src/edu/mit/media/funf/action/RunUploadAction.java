@@ -18,8 +18,6 @@ public class RunUploadAction extends Action {
 
     private UploadService uploader;
 
-    RunUploadAction() {
-    }
 
     public RunUploadAction(FileArchive archive, RemoteFileArchive upload, UploadService uploader) {
         this.archive = archive;

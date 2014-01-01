@@ -35,9 +35,7 @@ public class Action implements Runnable {
     
     private Looper looper = null;
     private Handler handler = null;
-    
-    Action() {
-    }
+
         
     protected Handler getHandler() {
         return handler;

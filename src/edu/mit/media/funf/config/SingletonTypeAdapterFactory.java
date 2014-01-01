@@ -116,6 +116,7 @@ public class SingletonTypeAdapterFactory implements TypeAdapterFactory {
 			E object = (E)cache.get(configString);
 			if (object == null) {
 				object = typeAdapter.read(new JsonTreeReader(el));
+
 				cache.put(configString, object);
 			}
 			return object;

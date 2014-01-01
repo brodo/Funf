@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import edu.mit.media.funf.FunfManager;
 import edu.mit.media.funf.Schedule;
 import edu.mit.media.funf.config.Configurable;
+import edu.mit.media.funf.datasource.CompositeDataSource;
 import edu.mit.media.funf.datasource.StartableDataSource;
 import edu.mit.media.funf.pipeline.BasicPipeline;
 import edu.mit.media.funf.pipeline.Pipeline;
@@ -59,6 +60,7 @@ public class TestPipeline extends AndroidTestCase {
 	}
 	
 	public void testLoadPipeline() {
+
  		Pipeline pipeline = gson.fromJson(getBasicPipeLineString(), Pipeline.class);
 		assertTrue("Should respect runtime type.", pipeline instanceof BasicPipeline);
 		BasicPipeline basicPipeline = (BasicPipeline)pipeline;

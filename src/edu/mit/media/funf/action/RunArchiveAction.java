@@ -17,9 +17,7 @@ public class RunArchiveAction extends Action {
     
     @Configurable
     private SQLiteOpenHelper dbHelper = null;
-    
-    RunArchiveAction() {
-    }
+
     
     public RunArchiveAction(FileArchive archive, SQLiteOpenHelper dbHelper) {
         this.archive = archive;

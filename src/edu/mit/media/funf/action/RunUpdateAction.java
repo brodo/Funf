@@ -17,9 +17,7 @@ public class RunUpdateAction extends Action {
     
     @Configurable
     protected ConfigUpdater update = null;
-    
-    RunUpdateAction() {
-    }
+
     
     public RunUpdateAction(String name, FunfManager manager, ConfigUpdater update) {
         this.name = name;
