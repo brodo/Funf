@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 
 import edu.mit.media.funf.FunfManager;
+import edu.mit.media.funf.pipeline.Pipeline;
 import edu.mit.media.funf.util.EqualsUtil;
 import edu.mit.media.funf.util.LogUtil;
 
@@ -16,7 +17,8 @@ public abstract class ConfigUpdater {
     try {
       JsonObject newConfig = getConfig();
       if (!EqualsUtil.areEqual(oldConfig, newConfig)) {
-        mgr.saveAndReload(name, newConfig);
+        Pipeline p = mgr.createPipelineFormConfig(newConfig);
+        mgr.registerPipeline(name, p);
       }
     } catch (ConfigUpdateException e) {
       Log.w(LogUtil.TAG, "Unable to get config", e);

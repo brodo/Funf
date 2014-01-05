@@ -87,6 +87,7 @@ public class StartableDataSource implements Startable, DataSource {
         this.outputListener = listener;
     }
 
+
     protected void onStart() {
         Log.d(LogUtil.TAG, "ON START");
     }

@@ -1,16 +1,16 @@
 package edu.mit.media.funf.testapp;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import edu.mit.media.funf.config.*;
+import edu.mit.media.funf.config.Configurable;
+import edu.mit.media.funf.config.ConfigurableTypeAdapterFactory;
+import edu.mit.media.funf.config.DefaultRuntimeTypeAdapterFactory;
+import edu.mit.media.funf.config.SingletonTypeAdapterFactory;
 import edu.mit.media.funf.probe.Probe;
-import edu.mit.media.funf.util.LogUtil;
 
-public class TestConfigurableParsing extends AndroidTestCase {
+public class ConfigurableParsingTests extends AndroidTestCase {
     private Gson gson;
 
     @Override
@@ -87,7 +87,7 @@ public class TestConfigurableParsing extends AndroidTestCase {
         assertEquals("Specified config was not set in nested configurable", 5, test2.nested.getPrivateField());
 
 //      Taken out until i figure out where and why this is needed, if at all.
-//      String expectedSerialized = "{\"@type\":\"TestConfigurableParsing$Test2\",\"nested\":{\"@type\":\"TestConfigurableParsing$Test2\",\"nested\":{\"@type\":\"TestConfigurableParsing$Test1\",\"intfield\":1,\"privateField\":2},\"intfield\":1,\"privateField\":5},\"intfield\":5,\"privateField\":3}";
+//      String expectedSerialized = "{\"@type\":\"ConfigurableParsingTests$Test2\",\"nested\":{\"@type\":\"ConfigurableParsingTests$Test2\",\"nested\":{\"@type\":\"ConfigurableParsingTests$Test1\",\"intfield\":1,\"privateField\":2},\"intfield\":1,\"privateField\":5},\"intfield\":5,\"privateField\":3}";
 //      assertEquals("Configurable not serialized to json correctly", new JsonParser().parse(expectedSerialized), gson.toJsonTree(test));
     }
 

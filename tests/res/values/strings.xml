@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FunfTestApp</string>
     <string name="default_pipeline">
         {"@type":"edu.mit.media.funf.pipeline.BasicPipeline",
         "name":"default",

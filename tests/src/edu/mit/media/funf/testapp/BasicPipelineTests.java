@@ -23,7 +23,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-public class TestPipeline extends AndroidTestCase {
+public class BasicPipelineTests extends AndroidTestCase {
 	
 	private Gson gson;
 	private Queue<String> actions;
@@ -41,9 +41,9 @@ public class TestPipeline extends AndroidTestCase {
 	}
 
 
-	
 	public String getBasicPipeLineString(){
         int resId = R.raw.basic_pipeline_config;
+
 
         BufferedInputStream inputStream =  new BufferedInputStream(getContext().getResources().openRawResource(resId));
         try {
@@ -56,11 +56,12 @@ public class TestPipeline extends AndroidTestCase {
 	
 	
 	public void testPipelineLifecycle() {
+
+
 	
 	}
 	
-	public void testLoadPipeline() {
-
+	public void testLoadBasicPipeline() {
  		Pipeline pipeline = gson.fromJson(getBasicPipeLineString(), Pipeline.class);
 		assertTrue("Should respect runtime type.", pipeline instanceof BasicPipeline);
 		BasicPipeline basicPipeline = (BasicPipeline)pipeline;
@@ -68,7 +69,8 @@ public class TestPipeline extends AndroidTestCase {
 		assertNotNull("Schedules should exists.", schedules);
         assertNotNull("Data list should exist", basicPipeline.data);
         assertEquals("There should be exactly one item in the data list", basicPipeline.data.size(), 1);
-
+        StartableDataSource dataSource = basicPipeline.data.get(0);
+        assertNull(dataSource.getOutputListener());
 
 	}
 }

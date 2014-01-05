@@ -50,10 +50,10 @@ import edu.mit.media.funf.storage.FileArchive;
 import edu.mit.media.funf.storage.HttpArchive;
 import edu.mit.media.funf.storage.RemoteFileArchive;
 import edu.mit.media.funf.util.LogUtil;
-import edu.mit.media.funf.util.StringUtil;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FunfManager extends Service {
 
@@ -65,92 +65,193 @@ public class FunfManager extends Service {
     PIPELINE_TYPE = "funf/pipeline",
     ALARM_TYPE = "funf/alarm";
 
-    private static final String 
-    DISABLED_PIPELINE_LIST = "__DISABLED__";
+    private static final String
+    DISABLED_PIPELINE_PREFIX = "__DISABLED__";
 
     private Handler handler;
     private SharedPreferences prefs;
-    private Map<String,Pipeline> pipelines;
-    private Map<String,Pipeline> disabledPipelines;
-    private Set<String> disabledPipelineNames;
+    private Map <String,Pipeline> pipelines;
 
+    private Map <String, String> configStringsFromPreferences;
+    private Map <String, String> configStringsFromMetadata;
+    private Gson gson;
+
+    private static PipelineFactory PIPELINE_FACTORY;
+    private static DefaultRuntimeTypeAdapterFactory<Action> ACTION_FACTORY;
+    private static ListenerInjectorTypeAdapterFactory DATASOURCE_FACTORY;
+    private static SingletonTypeAdapterFactory PROBE_FACTORY;
+
+    /**
+     * Get pipeline configuration JSON strings from shared preferences.
+     * Pipeline configurations are stored in the shared preferences if they are modified on runtime.
+     * @see edu.mit.media.funf.config.ConfigUpdater
+     * @return a map containing the name and the corresponding config JSON string stored in the shared preferences.
+     */
+    public Map<String, String> getConfigStringsFromPreferences() {
+        return configStringsFromPreferences;
+    }
+
+    /**
+     * Get pipeline configuration JSON strings from metadata.
+     * @return a map containing the name given in the AndroidManifest meta-data tag and the corresponding
+     * config JSON string form strings.xml.
+     */
+    public Map<String, String> getConfigStringsFromMetadata() {
+        return configStringsFromMetadata;
+    }
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    /**
+     * Get the shared preferences
+     * @return the shared preferences for this class
+     */
+    public SharedPreferences getPrefs() {
+        return prefs;
+    }
+
+    /**
+     * Get all pipelines registered in the Manager
+     * @return all pipelines, no matter if they are enabled or disabled
+     */
+    public Map <String, Pipeline> getAllPipelines(){
+        return pipelines;
+    }
+
+    /**
+     * Get all enabled pipelines.
+     * @return all enabled pipelines
+     */
+    public Map <String, Pipeline> getEnabledPipelines(){
+        final Map <String, Pipeline> enabled = new HashMap<String, Pipeline>();
+        for(String pn : pipelines.keySet()) {
+            Pipeline p = pipelines.get(pn);
+            if(p.isEnabled()) enabled.put(pn,p);
+        }
+        return enabled;
+    }
+
+    /**
+     * Get all disabled pipelines.
+     * @return all disabled pipelines
+     */
+    public Map <String, Pipeline> getDisabledPipelines(){
+        final Map <String, Pipeline> disabled = new HashMap<String, Pipeline>();
+        for(String pn : pipelines.keySet()) {
+            Pipeline p = pipelines.get(pn);
+            if(!p.isEnabled()) disabled.put(pn,p);
+        }
+        return disabled;
+    }
+
+    /**
+     * Called automatically on startup.
+     * Loads and registers all pipelines from shared preferences and metadata
+     */
     @Override
     public void onCreate() {
         super.onCreate();
-        this.handler = new Handler();
+        handler = new Handler();
         getGson(); // Sets gson
-        this.prefs = getSharedPreferences(getClass().getName(), MODE_PRIVATE);
-        this.pipelines = new HashMap<String, Pipeline>();
-        this.disabledPipelines = new HashMap<String, Pipeline>();
-        this.disabledPipelineNames = new HashSet<String>(Arrays.asList(prefs.getString(DISABLED_PIPELINE_LIST, "").split(",")));
-        this.disabledPipelineNames.remove(""); // Remove the empty name, if no disabled pipelines exist
-        reload();
+        prefs = getSharedPreferences(getClass().getName(), MODE_PRIVATE);
+        pipelines = new HashMap<String, Pipeline>();
+        loadPipelineConfigs();
+        loadPipelines();
     }
 
-    public void reload() {
+    private void loadPipelineConfigs(){
+        configStringsFromPreferences = (Map <String, String>)prefs.getAll();
+        configStringsFromMetadata = convertConfigMetadataToMap(getMetadata());
+    }
+
+    /**
+     * Loads all pipelines form metadata and shared preferences.
+     * Pipelines form shared preferences always "win" if there are preferences from both sources with the same
+     * name.
+     */
+    public void loadPipelines() {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    reload();
+                    loadPipelines();
                 }
             });
             return;
-        } 
-        Set<String> pipelineNames = new HashSet<String>();
-        pipelineNames.addAll(prefs.getAll().keySet());
-        pipelineNames.remove(DISABLED_PIPELINE_LIST);
-        Bundle metadata = getMetadata();
-        pipelineNames.addAll(metadata.keySet());
-        for (String pipelineName : pipelineNames) {
-            reload(pipelineName);
         }
+        for (String key : configStringsFromPreferences.keySet()) {
+            String config = configStringsFromPreferences.get(key);
+            Pipeline pipeline = createPipelineFormConfig(config);
+            registerPipeline(key,pipeline);
+        }
+        for (String key : configStringsFromMetadata.keySet()) {
+            String config = configStringsFromMetadata.get(key);
+            Pipeline pipeline = createPipelineFormConfig(config);
+            registerPipeline(key,pipeline);
+        }
+
     }
 
-    public void reload(final String name) {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    reload(name);
-                }
-            });
-            return;
+    /**
+     * Converts a bundle of information fom AndroidManifest.xml to a map.
+     * If the value in the bundle is not a String, it is ignored.
+     * @see android.content.pm.PackageManager
+     * @param metadata Metadata taken form PackageManager
+     * @return The metadata which values are strings
+     */
+    public Map<String, String> convertConfigMetadataToMap(Bundle metadata){
+        HashMap<String, String> result = new HashMap<String, String>();
+        for(String key : metadata.keySet()){
+            Object config = metadata.get(key);
+            if(config instanceof String) result.put(key, (String)config);
         }
-        String pipelineConfig = null;
-        Bundle metadata = getMetadata();
-        if (prefs.contains(name)) {
-            pipelineConfig = prefs.getString(name, null);
-        } else if (metadata.containsKey(name)) {
-            pipelineConfig = metadata.getString(name);
-        } 
-        if (disabledPipelineNames.contains(name)) {
-            // Disabled, so don't load any config
-            Pipeline disabledPipeline = gson.fromJson(pipelineConfig, Pipeline.class);
-            disabledPipelines.put(name, disabledPipeline);
-            pipelineConfig = null;
-        }
-        if (pipelineConfig == null) {
-            unregisterPipeline(name);
-        } else {
-            Pipeline newPipeline = gson.fromJson(pipelineConfig, Pipeline.class);
-            registerPipeline(name, newPipeline); // Will unregister previous before running
-        }
+        return result;
+    }
+
+    public Pipeline createPipelineFormConfig(String config){
+        return gson.fromJson(config, Pipeline.class);
+    }
+
+    public Pipeline createPipelineFormConfig(JsonObject config){
+        return gson.fromJson(config, Pipeline.class);
     }
 
     public JsonObject getPipelineConfig(String name) {
-        String configString = prefs.getString(name, null);
-        Bundle metadata = getMetadata();
-        if (configString == null && metadata.containsKey(name)) {
-            configString = metadata.getString(name);
-        }
+        String configString = configStringsFromPreferences.get(name);
         return configString == null ? null : new JsonParser().parse(configString).getAsJsonObject();
     }
 
-    public boolean save(String name, JsonObject config) {
+    /**
+     * Restarts a pipeline by name
+     * @param pipelineName taken form the AndroidManifest and _not_ from the "name" field in the config JSON
+     * @return true if the pipeline could be restarted
+     */
+    public boolean restartPipeline(String pipelineName){
+        Pipeline p = pipelines.get(pipelineName);
+        p.onDestroy();
+        p.onCreate(this);
+        return true;
+    }
+
+    /**
+     * Starts a pipeline of a given name
+     * @param pipelineName
+     * @return true if the pipeline could be started
+     */
+    public boolean startPipeline(String pipelineName){
+        Pipeline p = pipelines.get(pipelineName);
+        if(p == null) return false;
+        p.onCreate(this);
+        return true;
+    }
+
+    public boolean savePipelineConfig(String name, JsonObject config) {
         try {
             // Check if this is a valid pipeline before saving
-            Pipeline pipeline = getGson().fromJson(config, Pipeline.class);
+            getGson().fromJson(config, Pipeline.class);
+            prefs.edit().clear();
             return prefs.edit().putString(name, config.toString()).commit();
         } catch (Exception e) {
             Log.e(LogUtil.TAG, "Unable to save config: " + config.toString());
@@ -158,22 +259,21 @@ public class FunfManager extends Service {
         }
     }
 
-    public boolean saveAndReload(String name, JsonObject config) {
-        boolean success = save(name, config);
-        if (success) {
-            reload(name);
+
+
+    public void savePipelineConfigs(){
+        for(String pipelineName : pipelines.keySet()){
+            Pipeline p = pipelines.get(pipelineName);
+            String saveKey = p.isEnabled() ? pipelineName :  DISABLED_PIPELINE_PREFIX + pipelineName;
+            savePipelineConfig(saveKey, getPipelineConfig(pipelineName));
         }
-        return success;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        // TODO: call onDestroy on all pipelines
-        for (Pipeline pipeline : pipelines.values()) {
-            pipeline.onDestroy();
-        }
+        for (Pipeline pipeline : pipelines.values()) if(pipeline.isEnabled()) pipeline.onDestroy();
 
         // TODO: save outstanding requests
         // TODO: remove all remaining Alarms
@@ -269,7 +369,7 @@ public class FunfManager extends Service {
         });
     }
 
-    private Gson gson;
+
     /**
      * Get a Gson instance which includes the SingletonProbeFactory
      * @return
@@ -285,7 +385,7 @@ public class FunfManager extends Service {
         return getPipelineFactory(this);
     }
 
-    private static PipelineFactory PIPELINE_FACTORY;
+
     public static PipelineFactory getPipelineFactory(Context context) {
         if (PIPELINE_FACTORY == null) {
             PIPELINE_FACTORY = new PipelineFactory(context);
@@ -297,7 +397,7 @@ public class FunfManager extends Service {
         return getProbeFactory(this);
     }
 
-    private static SingletonTypeAdapterFactory PROBE_FACTORY;
+
     public static SingletonTypeAdapterFactory getProbeFactory(Context context) {
         if (PROBE_FACTORY == null) {
             PROBE_FACTORY = new SingletonTypeAdapterFactory(
@@ -314,7 +414,7 @@ public class FunfManager extends Service {
         return getActionFactory(this);
     }
 
-    private static DefaultRuntimeTypeAdapterFactory<Action> ACTION_FACTORY;
+
     public static DefaultRuntimeTypeAdapterFactory<Action> getActionFactory(Context context) {
         if (ACTION_FACTORY == null) {
             ACTION_FACTORY = new DefaultRuntimeTypeAdapterFactory<Action>(
@@ -330,7 +430,7 @@ public class FunfManager extends Service {
         return getDataSourceFactory(this);
     }
 
-    private static ListenerInjectorTypeAdapterFactory DATASOURCE_FACTORY;
+
     public static ListenerInjectorTypeAdapterFactory getDataSourceFactory(Context context) {
         if (DATASOURCE_FACTORY == null) {
             DATASOURCE_FACTORY = new ListenerInjectorTypeAdapterFactory(
@@ -348,16 +448,11 @@ public class FunfManager extends Service {
             Log.d(LogUtil.TAG, "Registering pipeline: " + name);
             unregisterPipeline(name);
             pipelines.put(name, pipeline);
-            pipeline.onCreate(this);
         }
     }
 
     public Pipeline getRegisteredPipeline(String name) {
-        Pipeline p = pipelines.get(name);
-        if (p == null) {
-            p = disabledPipelines.get(name);
-        }
-        return p;
+        return pipelines.get(name);
     }
 
     public void unregisterPipeline(String name) {
@@ -370,23 +465,15 @@ public class FunfManager extends Service {
     }
 
     public void enablePipeline(String name) {
-        boolean previouslyDisabled = disabledPipelineNames.remove(name);
-        if (previouslyDisabled) {
-            prefs.edit().putString(DISABLED_PIPELINE_LIST, StringUtil.join(disabledPipelineNames, ",")).commit();
-            reload(name);
-        }
+        pipelines.get(name).onCreate(this);
     }
 
     public boolean isEnabled(String name) {
-        return this.pipelines.containsKey(name) && !disabledPipelineNames.contains(name);
+        return pipelines.containsKey(name) && pipelines.get(name).isEnabled();
     }
 
     public void disablePipeline(String name) {
-        boolean previouslyEnabled = disabledPipelineNames.add(name);
-        if (previouslyEnabled) {
-            prefs.edit().putString(DISABLED_PIPELINE_LIST, StringUtil.join(disabledPipelineNames, ",")).commit();
-            reload(name);
-        }
+        pipelines.get(name).onDestroy();
     }
 
     private String getPipelineName(Pipeline pipeline) {
