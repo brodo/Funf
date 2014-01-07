@@ -437,7 +437,7 @@ public interface Probe {
 				for (DataListener listener : listeners) {
 					dataListeners.add(listener);
 				}
-				start();
+				enable();
 			}
 		}
 
