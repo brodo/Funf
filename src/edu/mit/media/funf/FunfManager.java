@@ -54,6 +54,7 @@ import edu.mit.media.funf.util.LogUtil;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FunfManager extends Service {
 
@@ -70,7 +71,7 @@ public class FunfManager extends Service {
 
     private Handler handler;
     private SharedPreferences prefs;
-    private Map <String,Pipeline> pipelines;
+    private ConcurrentHashMap<String,Pipeline> pipelines;
 
     private Map <String, String> configStringsFromPreferences;
     private Map <String, String> configStringsFromMetadata;
@@ -114,7 +115,7 @@ public class FunfManager extends Service {
 
     /**
      * Get all pipelines registered in the Manager
-     * @return all pipelines, no matter if they are enabled or disabled
+     * @return all pipelines, no matter if they are enabled or disablonRuned
      */
     public Map <String, Pipeline> getAllPipelines(){
         return pipelines;
@@ -156,7 +157,7 @@ public class FunfManager extends Service {
         handler = new Handler();
         getGson(); // Sets gson
         prefs = getSharedPreferences(getClass().getName(), MODE_PRIVATE);
-        pipelines = new HashMap<String, Pipeline>();
+        pipelines = new ConcurrentHashMap<String, Pipeline>();
         loadPipelineConfigs();
         loadPipelines();
     }
@@ -172,15 +173,6 @@ public class FunfManager extends Service {
      * name.
      */
     public void loadPipelines() {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    loadPipelines();
-                }
-            });
-            return;
-        }
         for (String key : configStringsFromPreferences.keySet()) {
             String config = configStringsFromPreferences.get(key);
             Pipeline pipeline = createPipelineFormConfig(config);
@@ -191,7 +183,6 @@ public class FunfManager extends Service {
             Pipeline pipeline = createPipelineFormConfig(config);
             registerPipeline(key,pipeline);
         }
-
     }
 
     /**
@@ -229,16 +220,15 @@ public class FunfManager extends Service {
      * @return true if the pipeline could be restarted
      */
     public boolean restartPipeline(String pipelineName){
-        Pipeline p = pipelines.get(pipelineName);
-        p.onDestroy();
-        p.onCreate(this);
+        stopPipeline(pipelineName);
+        startPipeline(pipelineName);
         return true;
     }
 
     /**
-     * Starts a pipeline of a given name
+     * Starts the pipeline of a given name
      * @param pipelineName
-     * @return true if the pipeline could be started
+     * @return true if the pipeline could be found
      */
     public boolean startPipeline(String pipelineName){
         Pipeline p = pipelines.get(pipelineName);
@@ -247,6 +237,24 @@ public class FunfManager extends Service {
         return true;
     }
 
+    /**
+     * Stops the pipeline of a given name
+     * @param pipelineName
+     * @return true if the pipeline could be found
+     */
+    public boolean stopPipeline(String pipelineName){
+        Pipeline p = pipelines.get(pipelineName);
+        if(p== null) return false;
+        if(p.isEnabled()) p.onDestroy();
+        return true;
+    }
+
+    /**
+     * Saves a pipeline configuration as a string to the shared preferences
+     * @param name The name that is used as a key in the shared preferences
+     * @param config A drone configuration
+     * @return True if the config could be saved
+     */
     public boolean savePipelineConfig(String name, JsonObject config) {
         try {
             // Check if this is a valid pipeline before saving
@@ -260,7 +268,9 @@ public class FunfManager extends Service {
     }
 
 
-
+    /**
+     * Saves all pipelines in the pipeline map to the shared preferences
+     */
     public void savePipelineConfigs(){
         for(String pipelineName : pipelines.keySet()){
             Pipeline p = pipelines.get(pipelineName);
@@ -444,11 +454,9 @@ public class FunfManager extends Service {
     }
 
     public void registerPipeline(String name, Pipeline pipeline) {
-        synchronized (pipelines) {
-            Log.d(LogUtil.TAG, "Registering pipeline: " + name);
-            unregisterPipeline(name);
-            pipelines.put(name, pipeline);
-        }
+        Log.d(LogUtil.TAG, "Registering pipeline: " + name);
+        unregisterPipeline(name);
+        pipelines.putIfAbsent(name, pipeline);
     }
 
     public Pipeline getRegisteredPipeline(String name) {
@@ -456,24 +464,15 @@ public class FunfManager extends Service {
     }
 
     public void unregisterPipeline(String name) {
-        synchronized (pipelines) {
-            Pipeline existingPipeline = pipelines.remove(name);
-            if (existingPipeline != null) {
-                existingPipeline.onDestroy();
-            }
+        Pipeline existingPipeline = pipelines.remove(name);
+        if (existingPipeline != null && existingPipeline.isEnabled()) {
+            existingPipeline.onDestroy();
         }
     }
 
-    public void enablePipeline(String name) {
-        pipelines.get(name).onCreate(this);
-    }
 
     public boolean isEnabled(String name) {
         return pipelines.containsKey(name) && pipelines.get(name).isEnabled();
-    }
-
-    public void disablePipeline(String name) {
-        pipelines.get(name).onDestroy();
     }
 
     private String getPipelineName(Pipeline pipeline) {

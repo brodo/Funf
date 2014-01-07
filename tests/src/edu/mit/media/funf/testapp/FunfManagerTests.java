@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.test.ServiceTestCase;
 import android.test.mock.MockContext;
 import android.test.mock.MockPackageManager;
+import com.google.gson.JsonElement;
 import edu.mit.media.funf.FunfManager;
 import edu.mit.media.funf.pipeline.BasicPipeline;
+import edu.mit.media.funf.pipeline.Pipeline;
 
 /**
  * Created by Julian Dax on 01/01/14.
@@ -47,14 +49,14 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
     public void testRegisterBasicPipeline(){
         startService();
         getService().registerPipeline("basic", new BasicPipeline());
-        assertEquals("There should be exactly one disabled pipeline", 1, getService().getDisabledPipelines().size());
+        assertEquals("There should be exactly two disabled pipelines (one from manifest one registered) ", 2, getService().getDisabledPipelines().size());
     }
     public void testRegisteredPipelineShouldBeDisabled(){
         startService();
         getService().registerPipeline("basic", new BasicPipeline());
         assertNotNull("The new pipeline should be in the list", getService().getAllPipelines().get("basic"));
-        assertEquals("There should be one pipeline", 1, getService().getAllPipelines().size());
-        assertEquals("There should be one disabled pipeline", 1, getService().getDisabledPipelines().size());
+        assertEquals("There should be two pipelines (one from manifest one registered)", 2, getService().getAllPipelines().size());
+        assertEquals("There should be two disabled pipelines", 2, getService().getDisabledPipelines().size());
         assertEquals("There should be no enabled pipeline", 0, getService().getEnabledPipelines().size());
         assertEquals("Registered pipelines should be disabled by default", false, getService().getDisabledPipelines().get("basic").isEnabled());
     }
@@ -66,9 +68,21 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
         assertNotNull("The default pipeline from the manifest should be in the pipeline map", getService().getAllPipelines().get("default"));
     }
 
-    public void testPipelineStart(){
+    public void testPipelineStart() throws InterruptedException {
         startService();
         assertTrue("The default pipeline should be started", getService().startPipeline("default"));
-        assertNotNull("The default pipeline should be in the list of started pipelines", getService().getEnabledPipelines().get("default"));
+        Thread.sleep(50);
+        assertNotNull("The default pipeline should be in the list of enabled pipelines", getService().getEnabledPipelines().get("default"));
+    }
+
+    public void testPipelineStop() throws InterruptedException {
+        startService();
+        Pipeline p = new BasicPipeline();
+        getService().registerPipeline("default", p);
+        p.onCreate(getService());
+        Thread.sleep(50);
+        assertTrue("The default pipeline should be stopped", getService().stopPipeline("default"));
+        Thread.sleep(50);
+        assertNotNull("The default pipeline should be in the list of disabled pipelines", getService().getDisabledPipelines().get("default"));
     }
 }

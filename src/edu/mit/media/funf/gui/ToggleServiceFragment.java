@@ -72,10 +72,10 @@ public class ToggleServiceFragment extends Fragment {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (funfManager != null) {
                 if (isChecked) {
-                    funfManager.enablePipeline("default");
+                    funfManager.startPipeline("default");
                     pipeline = funfManager.getRegisteredPipeline("default");
                 } else {
-                    funfManager.disablePipeline("default");
+                    funfManager.stopPipeline("default");
                 }
             }
         }

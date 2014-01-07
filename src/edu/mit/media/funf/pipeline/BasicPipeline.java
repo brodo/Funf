@@ -60,7 +60,8 @@ import edu.mit.media.funf.util.StringUtil;
 
 public class BasicPipeline implements Pipeline, DataListener {
 
-    public static final String ACTION_ARCHIVE = "archive",
+    public static final String
+            ACTION_ARCHIVE = "archive",
             ACTION_UPLOAD = "upload",
             ACTION_UPDATE = "update";
     
@@ -78,10 +79,11 @@ public class BasicPipeline implements Pipeline, DataListener {
 
     @Configurable
     public ConfigUpdater update = null;
-    
+
+    // Data contains all probes
     @Configurable
     public List<StartableDataSource> data = new ArrayList<StartableDataSource>();
-    
+    // Schedule contains all {@link StartableDataSource}s which are not probes. E.g. upload and archive.
     @Configurable
     public Map<String, StartableDataSource> schedules = new HashMap<String, StartableDataSource>();
     
@@ -111,7 +113,6 @@ public class BasicPipeline implements Pipeline, DataListener {
                 dataSource.setListener(writeAction);
             }
 
-
             if (schedules.containsKey("archive")) {
                 DataListener archiveListener = new ActionAdapter(archiveAction);
                 schedules.get("archive").setListener(archiveListener);
@@ -139,12 +140,17 @@ public class BasicPipeline implements Pipeline, DataListener {
         }
     }
 
-    private void destroyDataSources() {
+    private void destroyOtherSchedules(){
+        if(enabled){
+            for(StartableDataSource dataSource: schedules.values()) dataSource.stop();
+        }
+    }
+
+    private void destroyProbes() {
         if (enabled) {
             for (StartableDataSource dataSource: data) {
                 dataSource.stop();
             }
-            enabled = false;
         }
     }
 
@@ -184,6 +190,7 @@ public class BasicPipeline implements Pipeline, DataListener {
 
     @Override
     public void onRun(String action, JsonElement config) {
+        if(!enabled) return;
         // Run on handler thread
         if (ACTION_ARCHIVE.equals(action)) {
             archiveAction.run();
@@ -202,10 +209,13 @@ public class BasicPipeline implements Pipeline, DataListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                destroyDataSources();
+                destroyProbes();
+                destroyOtherSchedules();
                 looper.quit();
+                enabled = false;
             }
         });
+
     }
 
     @Override
