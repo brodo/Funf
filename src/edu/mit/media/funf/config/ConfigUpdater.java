@@ -17,7 +17,7 @@ public abstract class ConfigUpdater {
     try {
       JsonObject newConfig = getConfig();
       if (!EqualsUtil.areEqual(oldConfig, newConfig)) {
-        Pipeline p = mgr.createPipelineFormConfig(newConfig);
+        Pipeline p = mgr.createPipelineFromConfig(newConfig);
         mgr.registerPipeline(name, p);
       }
     } catch (ConfigUpdateException e) {

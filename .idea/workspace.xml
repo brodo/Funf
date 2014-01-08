@@ -23,7 +23,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="120eea89-aec5-4dbb-b6a6-0269b7c6bb74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/mit/media/funf/probe/Probe.java" afterPath="$PROJECT_DIR$/src/edu/mit/media/funf/probe/Probe.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/CompositeDataSource.java" afterPath="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/CompositeDataSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigUpdater.java" afterPath="$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigUpdater.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/mit/media/funf/FunfManager.java" afterPath="$PROJECT_DIR$/src/edu/mit/media/funf/FunfManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java" afterPath="$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java" afterPath="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/funf.iml" afterPath="$PROJECT_DIR$/funf.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FunfTestApp/res/values/strings.xml" afterPath="$PROJECT_DIR$/FunfTestApp/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="funf-open-sensing-framework.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,21 +101,6 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/edu/mit/media/funf/pipeline/BasicPipeline.java" line="208" class="edu.mit.media.funf.pipeline.BasicPipeline" package="edu.mit.media.funf.pipeline">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
     </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
@@ -119,27 +111,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Pipeline.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/pipeline/Pipeline.java">
+      <file leaf-file-name="FunfManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/FunfManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="17" selection-start="994" selection-end="994" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
+            <state line="205" column="39" selection-start="7293" selection-end="7293" vertical-scroll-proportion="0.0" vertical-offset="1824" max-vertical-offset="8400">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#14138#14415#0" expanded="true" />
+                <element signature="e#14404#14405#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConfigurableTypeAdapterFactory.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigurableTypeAdapterFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="43" selection-start="1373" selection-end="1403" vertical-scroll-proportion="0.144" vertical-offset="0" max-vertical-offset="1095">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FunfManager.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/FunfManager.java">
+      <file leaf-file-name="SingletonTypeAdapterFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/SingletonTypeAdapterFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="310" column="17" selection-start="11058" selection-end="11058" vertical-scroll-proportion="0.49278846" vertical-offset="4325" max-vertical-offset="8370">
+            <state line="115" column="0" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.0" vertical-offset="494" max-vertical-offset="1440">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContextInjectorTypeAdapaterFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ContextInjectorTypeAdapaterFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="94" selection-start="2398" selection-end="2398" vertical-scroll-proportion="0.0" vertical-offset="362" max-vertical-offset="1035">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultRuntimeTypeAdapterFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/DefaultRuntimeTypeAdapterFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="124" column="98" selection-start="4752" selection-end="4752" vertical-scroll-proportion="0.0" vertical-offset="1322" max-vertical-offset="3045">
               <folding>
-                <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#3835#3836#0" expanded="true" />
-                <element signature="e#3865#3866#0" expanded="true" />
-                <element signature="e#4474#4492#0" expanded="true" />
-                <element signature="e#4882#4900#0" expanded="true" />
-                <element signature="e#6947#6963#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,13 +166,17 @@
       <file leaf-file-name="BasicPipeline.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/pipeline/BasicPipeline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="192" column="28" selection-start="6455" selection-end="6455" vertical-scroll-proportion="0.0" vertical-offset="1927" max-vertical-offset="3300">
-              <folding>
-                <element signature="e#6214#6344#0" expanded="true" />
-                <element signature="e#6333#6334#0" expanded="true" />
-                <element signature="e#6886#7118#0" expanded="true" />
-                <element signature="e#7107#7108#0" expanded="true" />
-              </folding>
+            <state line="72" column="178" selection-start="2500" selection-end="2500" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="3180">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConfigUpdater.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigUpdater.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="38" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -162,7 +184,25 @@
       <file leaf-file-name="FunfManagerTests.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="142" selection-start="4256" selection-end="4256" vertical-scroll-proportion="0.0" vertical-offset="621" max-vertical-offset="1230">
+            <state line="86" column="168" selection-start="4313" selection-end="4313" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1560">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProbeDataSource.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="30" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Probe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/probe/Probe.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="31" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0" vertical-offset="2385" max-vertical-offset="10815">
               <folding />
             </state>
           </provider>
@@ -211,8 +251,6 @@
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/config/SuperclassExclusionStrategy.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigurableTypeAdapterFactory.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/config/SingletonTypeAdapterFactory.java" />
-        <option value="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/CompositeDataSource.java" />
-        <option value="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/action/StartableAction.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/action/StartDataSourceAction.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/action/StopDataSourceAction.java" />
@@ -230,19 +268,21 @@
         <option value="$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/ConfigurableParsingTests.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigUpdater.java" />
         <option value="$PROJECT_DIR$/FunfTestApp/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/FunfTestApp/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/tests/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/tests/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/pipeline/BasicPipeline.java" />
         <option value="$PROJECT_DIR$/src/edu/mit/media/funf/FunfManager.java" />
+        <option value="$PROJECT_DIR$/FunfTestApp/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/CompositeDataSource.java" />
+        <option value="$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java" />
+        <option value="$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1440" />
-    <option name="height" value="878" />
+    <option name="width" value="1916" />
+    <option name="height" value="1058" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -276,7 +316,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -323,6 +362,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="funf-open-sensing-framework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="funf-open-sensing-framework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -344,10 +405,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="funf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -363,11 +420,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="funf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pipeline" />
+              <option name="myItemId" value="gson" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -381,12 +434,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="FunfTestApp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -657,11 +711,12 @@
       <workItem from="1387981523364" duration="4283000" />
       <workItem from="1388054622923" duration="71372000" />
       <workItem from="1388924482512" duration="11161000" />
+      <workItem from="1389184291431" duration="4402000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113032000" />
+    <option name="totallyTimeSpent" value="117434000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -684,34 +739,34 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="878" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1916" height="1058" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32824427" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30020705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37163562" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3994911" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4378882" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43698347" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3747412" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33476394" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33457845" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22465315" sideWeight="0.66886544" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41857508" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23159018" sideWeight="0.66886544" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41821945" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30124223" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -740,13 +795,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/SingletonTypeAdapterFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="0" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.0" vertical-offset="1000" max-vertical-offset="1440">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/libs/gson-2.2.4-sources.jar!/com/google/gson/internal/bind/JsonTreeReader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="120" column="0" selection-start="3767" selection-end="3767" vertical-scroll-proportion="0.0" vertical-offset="1234" max-vertical-offset="3090" />
@@ -760,13 +808,6 @@
     <entry file="jar://$PROJECT_DIR$/libs/gson-2.2.4-sources.jar!/com/google/gson/InstanceCreator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="32" selection-start="3064" selection-end="3079" vertical-scroll-proportion="1.1121157" vertical-offset="345" max-vertical-offset="1260" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/CompositeDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="1325" selection-end="1325" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/libs/gson-2.2.4-sources.jar!/com/google/gson/internal/ConstructorConstructor.java">
@@ -783,13 +824,6 @@
         <state line="584" column="0" selection-start="22694" selection-end="22694" vertical-scroll-proportion="0.0" vertical-offset="7982" max-vertical-offset="13470" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="27" selection-start="1205" selection-end="1205" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/action/StartDataSourceAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="0" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
@@ -799,9 +833,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/action/StopDataSourceAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <folding />
-        </state>
+        <state line="12" column="0" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/action/WriteDataAction.java">
@@ -827,18 +859,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/action/RunArchiveAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="494" selection-end="494" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/DefaultRuntimeTypeAdapterFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="0" selection-start="5873" selection-end="5873" vertical-scroll-proportion="0.0" vertical-offset="1780" max-vertical-offset="3045">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="19" column="0" selection-start="494" selection-end="494" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/libs/gson-2.2.4-sources.jar!/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java">
@@ -858,13 +879,6 @@
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/action/SaveToDatabaseAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="13" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ContextInjectorTypeAdapaterFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="0" selection-start="2246" selection-end="2246" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="1035">
           <folding />
         </state>
       </provider>
@@ -910,13 +924,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="647" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/probe/Probe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="31" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10815">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/probe/builtin/SensorProbe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="22" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.0" vertical-offset="2" max-vertical-offset="2055">
@@ -940,13 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/StartableDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="0" selection-start="2522" selection-end="2522" vertical-scroll-proportion="0.0" vertical-offset="13" max-vertical-offset="1065">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="17" selection-start="1434" selection-end="1434" vertical-scroll-proportion="0.0" vertical-offset="988" max-vertical-offset="1635">
@@ -956,27 +956,7 @@
     </entry>
     <entry file="file:///usr/local/opt/android-sdk/sources/android-17/android/test/ServiceTestCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="20" selection-start="5233" selection-end="5233" vertical-scroll-proportion="0.0" vertical-offset="1750" max-vertical-offset="4695">
-          <folding>
-            <element signature="e#0#13296#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#5624#5625#0" expanded="false" />
-            <element signature="e#5655#5656#0" expanded="false" />
-            <element signature="e#12267#12268#0" expanded="false" />
-            <element signature="e#12309#12310#0" expanded="false" />
-            <element signature="e#12521#12522#0" expanded="false" />
-            <element signature="e#12556#12557#0" expanded="false" />
-            <element signature="e#12825#12826#0" expanded="false" />
-            <element signature="e#12862#12863#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/BasicPipelineTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="31" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-          <folding />
-        </state>
+        <state line="115" column="20" selection-start="5233" selection-end="5233" vertical-scroll-proportion="0.0" vertical-offset="1750" max-vertical-offset="4695" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/ConfigurableParsingTests.java">
@@ -1002,29 +982,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigUpdater.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="38" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="513">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FunfTestApp/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="100" selection-end="349" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/opt/android-sdk/sources/android-17/android/content/ContextWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="55" column="23" selection-start="1884" selection-end="1884" vertical-scroll-proportion="0.31343284" vertical-offset="0" max-vertical-offset="8775" />
@@ -1033,13 +990,6 @@
     <entry file="file://$PROJECT_DIR$/FunfTestApp/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="88" selection-start="826" selection-end="826" vertical-scroll-proportion="0.41836736" vertical-offset="20" max-vertical-offset="510">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="11" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <folding />
         </state>
       </provider>
@@ -1053,49 +1003,27 @@
     </entry>
     <entry file="file:///usr/local/opt/android-sdk/sources/android-17/android/os/Looper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="13" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.81374323" vertical-offset="90" max-vertical-offset="3975">
-          <folding />
-        </state>
+        <state line="52" column="13" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.81374323" vertical-offset="90" max-vertical-offset="3975" />
       </provider>
     </entry>
     <entry file="file:///usr/local/opt/android-sdk/sources/android-17/java/lang/Runnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="17" selection-start="963" selection-end="963" vertical-scroll-proportion="0.18595041" vertical-offset="0" max-vertical-offset="726">
-          <folding />
-        </state>
+        <state line="24" column="17" selection-start="963" selection-end="963" vertical-scroll-proportion="0.18595041" vertical-offset="0" max-vertical-offset="726" />
       </provider>
     </entry>
     <entry file="file:///usr/local/opt/android-sdk/sources/android-17/android/os/Handler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="13" selection-start="3028" selection-end="3028" vertical-scroll-proportion="0.9504132" vertical-offset="0" max-vertical-offset="11565">
-          <folding />
-        </state>
+        <state line="63" column="13" selection-start="3028" selection-end="3028" vertical-scroll-proportion="0.9504132" vertical-offset="0" max-vertical-offset="11565" />
       </provider>
     </entry>
     <entry file="file:///usr/local/opt/android-sdk/sources/android-17/android/content/pm/PackageManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="36" selection-start="1490" selection-end="1504" vertical-scroll-proportion="0.2955665" vertical-offset="0" max-vertical-offset="44025">
-          <folding />
-        </state>
+        <state line="43" column="36" selection-start="1490" selection-end="1504" vertical-scroll-proportion="0.2955665" vertical-offset="0" max-vertical-offset="44025" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/Launcher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="13" selection-start="224" selection-end="224" vertical-scroll-proportion="0.098522164" vertical-offset="0" max-vertical-offset="609">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigurableTypeAdapterFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="52" selection-start="2130" selection-end="2130" vertical-scroll-proportion="0.81280786" vertical-offset="0" max-vertical-offset="1095">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="142" selection-start="4256" selection-end="4256" vertical-scroll-proportion="0.0" vertical-offset="621" max-vertical-offset="1230">
           <folding />
         </state>
       </provider>
@@ -1107,30 +1035,122 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/pipeline/BasicPipeline.java">
+    <entry file="file://$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/BasicPipelineTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="28" selection-start="6455" selection-end="6455" vertical-scroll-proportion="0.0" vertical-offset="1927" max-vertical-offset="3300">
-          <folding>
-            <element signature="e#6214#6344#0" expanded="true" />
-            <element signature="e#6333#6334#0" expanded="true" />
-            <element signature="e#6886#7118#0" expanded="true" />
-            <element signature="e#7107#7108#0" expanded="true" />
-          </folding>
+        <state line="25" column="31" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/StartableDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="0" selection-start="2522" selection-end="2522" vertical-scroll-proportion="0.0" vertical-offset="13" max-vertical-offset="1065">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="11" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="513">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunfTestApp/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="145" selection-end="408" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/CompositeDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="10" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/datasource/ProbeDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="30" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/probe/Probe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="31" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10815">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/src/edu/mit/media/funf/testapp/FunfManagerTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="168" selection-start="4313" selection-end="4313" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1560">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/FunfManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="310" column="17" selection-start="11058" selection-end="11058" vertical-scroll-proportion="0.49278846" vertical-offset="4325" max-vertical-offset="8370">
+        <state line="205" column="39" selection-start="7293" selection-end="7293" vertical-scroll-proportion="0.0" vertical-offset="2694" max-vertical-offset="8400">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#3835#3836#0" expanded="true" />
-            <element signature="e#3865#3866#0" expanded="true" />
-            <element signature="e#4474#4492#0" expanded="true" />
-            <element signature="e#4882#4900#0" expanded="true" />
-            <element signature="e#6947#6963#0" expanded="true" />
+            <element signature="e#14138#14415#0" expanded="true" />
+            <element signature="e#14404#14405#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/pipeline/BasicPipeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="178" selection-start="2500" selection-end="2500" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="3180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigUpdater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="38" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/SingletonTypeAdapterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="0" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.0" vertical-offset="1000" max-vertical-offset="1440">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ContextInjectorTypeAdapaterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="94" selection-start="2398" selection-end="2398" vertical-scroll-proportion="0.0" vertical-offset="362" max-vertical-offset="1035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/DefaultRuntimeTypeAdapterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="98" selection-start="4752" selection-end="4752" vertical-scroll-proportion="0.0" vertical-offset="1322" max-vertical-offset="3045">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/mit/media/funf/config/ConfigurableTypeAdapterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="43" selection-start="1373" selection-end="1403" vertical-scroll-proportion="0.144" vertical-offset="0" max-vertical-offset="1095">
+          <folding />
         </state>
       </provider>
     </entry>

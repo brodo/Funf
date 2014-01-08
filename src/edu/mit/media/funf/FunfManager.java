@@ -175,12 +175,12 @@ public class FunfManager extends Service {
     public void loadPipelines() {
         for (String key : configStringsFromPreferences.keySet()) {
             String config = configStringsFromPreferences.get(key);
-            Pipeline pipeline = createPipelineFormConfig(config);
+            Pipeline pipeline = createPipelineFromConfig(config);
             registerPipeline(key,pipeline);
         }
         for (String key : configStringsFromMetadata.keySet()) {
             String config = configStringsFromMetadata.get(key);
-            Pipeline pipeline = createPipelineFormConfig(config);
+            Pipeline pipeline = createPipelineFromConfig(config);
             registerPipeline(key,pipeline);
         }
     }
@@ -201,11 +201,11 @@ public class FunfManager extends Service {
         return result;
     }
 
-    public Pipeline createPipelineFormConfig(String config){
+    public Pipeline createPipelineFromConfig(String config){
         return gson.fromJson(config, Pipeline.class);
     }
 
-    public Pipeline createPipelineFormConfig(JsonObject config){
+    public Pipeline createPipelineFromConfig(JsonObject config){
         return gson.fromJson(config, Pipeline.class);
     }
 

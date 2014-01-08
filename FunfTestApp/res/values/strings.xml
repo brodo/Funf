@@ -6,7 +6,8 @@
         "name":"default",
         "version":1,
         "data":[
-        "edu.mit.media.funf.probe.builtin.WifiProbe"
+            {"@type":"edu.mit.media.funf.probe.builtin.WifiProbe",
+             "@schedule":{"interval": 30, "duration": 10}}
         ]
         }
     </string>

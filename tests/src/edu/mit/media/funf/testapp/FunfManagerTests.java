@@ -3,8 +3,13 @@ package edu.mit.media.funf.testapp;
 import android.content.Intent;
 import android.test.ServiceTestCase;
 import edu.mit.media.funf.FunfManager;
+import edu.mit.media.funf.datasource.CompositeDataSource;
+import edu.mit.media.funf.datasource.DataSource;
+import edu.mit.media.funf.datasource.ProbeDataSource;
+import edu.mit.media.funf.datasource.StartableDataSource;
 import edu.mit.media.funf.pipeline.BasicPipeline;
 import edu.mit.media.funf.pipeline.Pipeline;
+import edu.mit.media.funf.probe.builtin.WifiProbe;
 
 /**
  * Created by Julian Dax on 01/01/14.
@@ -77,4 +82,26 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
         Thread.sleep(50);
         assertNotNull("The default pipeline should be in the list of disabled pipelines", getService().getDisabledPipelines().get("default"));
     }
+
+    public void testCreatePipelineFormConfig(){
+        startService();
+        String pipelineConfig = "{\"@type\":\"edu.mit.media.funf.pipeline.BasicPipeline\",\n" +
+                "        \"name\":\"default\",\n" +
+                "        \"version\":1,\n" +
+                "        \"data\":[\n" +
+                "            {\"@type\":\"edu.mit.media.funf.probe.builtin.WifiProbe\",\n" +
+                "             \"@schedule\":{\"interval\": 30, \"duration\": 10}}\n" +
+                "        ]\n" +
+                "        }";
+        BasicPipeline p = (BasicPipeline)getService().createPipelineFromConfig(pipelineConfig);
+        assertNotNull("The pipeline should have been created", p);
+        assertEquals("There should be one data source", 1, p.data.size());
+        StartableDataSource startableDataSource = p.data.get(0);
+        assertEquals("The data source should be a composite data source", CompositeDataSource.class, startableDataSource.getClass());
+        CompositeDataSource dataSource = (CompositeDataSource) startableDataSource;
+        assertEquals("The data source of the data source should be a probe data source", ProbeDataSource.class, dataSource.source.getClass());
+        ProbeDataSource probeDataSource = (ProbeDataSource)dataSource.source;
+        assertEquals("The data source of the probe data source should be a wifi probe", WifiProbe.class, probeDataSource.source.getClass());
+    }
+
 }

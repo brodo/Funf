@@ -32,7 +32,7 @@ import edu.mit.media.funf.probe.Probe.ContinuousProbe;
 public class ProbeDataSource extends StartableDataSource {
 
     @Configurable
-    protected Probe source;
+    public Probe source;
     
     @Override
     protected void onStart() {
