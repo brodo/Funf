@@ -220,8 +220,8 @@ public class FunfManager extends Service {
      * @return true if the pipeline could be restarted
      */
     public boolean restartPipeline(String pipelineName){
-        stopPipeline(pipelineName);
-        startPipeline(pipelineName);
+        disablePipeline(pipelineName);
+        enablePipeline(pipelineName);
         return true;
     }
 
@@ -230,7 +230,7 @@ public class FunfManager extends Service {
      * @param pipelineName
      * @return true if the pipeline could be found
      */
-    public boolean startPipeline(String pipelineName){
+    public boolean enablePipeline(String pipelineName){
         Pipeline p = pipelines.get(pipelineName);
         if(p == null) return false;
         p.onCreate(this);
@@ -242,7 +242,7 @@ public class FunfManager extends Service {
      * @param pipelineName
      * @return true if the pipeline could be found
      */
-    public boolean stopPipeline(String pipelineName){
+    public boolean disablePipeline(String pipelineName){
         Pipeline p = pipelines.get(pipelineName);
         if(p== null) return false;
         if(p.isEnabled()) p.onDestroy();

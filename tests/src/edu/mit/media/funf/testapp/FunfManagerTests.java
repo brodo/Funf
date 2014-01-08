@@ -1,15 +1,7 @@
 package edu.mit.media.funf.testapp;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ServiceInfo;
-import android.os.Bundle;
 import android.test.ServiceTestCase;
-import android.test.mock.MockContext;
-import android.test.mock.MockPackageManager;
-import com.google.gson.JsonElement;
 import edu.mit.media.funf.FunfManager;
 import edu.mit.media.funf.pipeline.BasicPipeline;
 import edu.mit.media.funf.pipeline.Pipeline;
@@ -70,7 +62,7 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
 
     public void testPipelineStart() throws InterruptedException {
         startService();
-        assertTrue("The default pipeline should be started", getService().startPipeline("default"));
+        assertTrue("The default pipeline should be started", getService().enablePipeline("default"));
         Thread.sleep(50);
         assertNotNull("The default pipeline should be in the list of enabled pipelines", getService().getEnabledPipelines().get("default"));
     }
@@ -81,7 +73,7 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
         getService().registerPipeline("default", p);
         p.onCreate(getService());
         Thread.sleep(50);
-        assertTrue("The default pipeline should be stopped", getService().stopPipeline("default"));
+        assertTrue("The default pipeline should be stopped", getService().disablePipeline("default"));
         Thread.sleep(50);
         assertNotNull("The default pipeline should be in the list of disabled pipelines", getService().getDisabledPipelines().get("default"));
     }
