@@ -2,3 +2,7 @@ bin/*
 gen/*
 *.log
 local.properties
+# Intellij
+.idea/
+*.iml
+*.iws
