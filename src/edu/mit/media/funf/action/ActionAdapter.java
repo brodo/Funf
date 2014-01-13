@@ -37,6 +37,7 @@ public class ActionAdapter implements DataListener {
     @Configurable
     private Action target = null;
 
+
     public ActionAdapter(){}
 
     public ActionAdapter(Action action) {

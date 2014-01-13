@@ -2,13 +2,18 @@ package edu.mit.media.funf.testapp;
 
 import android.content.Intent;
 import android.test.ServiceTestCase;
+import com.google.gson.IJsonObject;
+import com.google.gson.JsonElement;
 import edu.mit.media.funf.FunfManager;
+import edu.mit.media.funf.action.ActionAdapter;
 import edu.mit.media.funf.datasource.CompositeDataSource;
 import edu.mit.media.funf.datasource.DataSource;
 import edu.mit.media.funf.datasource.ProbeDataSource;
 import edu.mit.media.funf.datasource.StartableDataSource;
 import edu.mit.media.funf.pipeline.BasicPipeline;
 import edu.mit.media.funf.pipeline.Pipeline;
+import edu.mit.media.funf.probe.Probe;
+import edu.mit.media.funf.probe.builtin.AlarmProbe;
 import edu.mit.media.funf.probe.builtin.WifiProbe;
 
 /**
@@ -83,14 +88,14 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
         assertNotNull("The default pipeline should be in the list of disabled pipelines", getService().getDisabledPipelines().get("default"));
     }
 
-    public void testCreatePipelineFormConfig(){
+    public void testCreatePipelineFormConfig() throws InterruptedException {
         startService();
         String pipelineConfig = "{\"@type\":\"edu.mit.media.funf.pipeline.BasicPipeline\",\n" +
                 "        \"name\":\"default\",\n" +
                 "        \"version\":1,\n" +
                 "        \"data\":[\n" +
                 "            {\"@type\":\"edu.mit.media.funf.probe.builtin.WifiProbe\",\n" +
-                "             \"@schedule\":{\"interval\": 30, \"duration\": 10}}\n" +
+                "             \"@schedule\":{\"interval\": 3, \"duration\": 1}}\n" +
                 "        ]\n" +
                 "        }";
         BasicPipeline p = (BasicPipeline)getService().createPipelineFromConfig(pipelineConfig);
@@ -99,9 +104,21 @@ public class FunfManagerTests extends ServiceTestCase<FunfManager> {
         StartableDataSource startableDataSource = p.data.get(0);
         assertEquals("The data source should be a composite data source", CompositeDataSource.class, startableDataSource.getClass());
         CompositeDataSource dataSource = (CompositeDataSource) startableDataSource;
-        assertEquals("The data source of the data source should be a probe data source", ProbeDataSource.class, dataSource.source.getClass());
-        ProbeDataSource probeDataSource = (ProbeDataSource)dataSource.source;
-        assertEquals("The data source of the probe data source should be a wifi probe", WifiProbe.class, probeDataSource.source.getClass());
+        assertNull("There should be no listener", dataSource.getOutputListener());
+
+        dataSource.setListener(new Probe.DataListener() {
+            @Override
+            public void onDataReceived(IJsonObject probeConfig, IJsonObject data) {
+                assertNotNull("there should be data", data);
+            }
+
+            @Override
+            public void onDataCompleted(IJsonObject probeConfig, JsonElement checkpoint) {
+
+            }
+        });
+        Thread.sleep(4000);
+
     }
 
 }

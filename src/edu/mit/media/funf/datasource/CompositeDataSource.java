@@ -25,6 +25,8 @@
  */
 package edu.mit.media.funf.datasource;
 
+import edu.mit.media.funf.action.ActionAdapter;
+import edu.mit.media.funf.action.StartableAction;
 import edu.mit.media.funf.config.Configurable;
 import edu.mit.media.funf.probe.Probe.DataListener;
 
