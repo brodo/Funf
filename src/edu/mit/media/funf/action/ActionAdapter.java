@@ -41,11 +41,11 @@ public class ActionAdapter implements DataListener {
     public ActionAdapter(){}
 
     public ActionAdapter(Action action) {
-        this.target = action;
+        target = action;
     }
     
     public ActionAdapter(TriggerAction action) {
-        this.target = (Action)action;
+        target = (Action)action;
     }
     
     @Override
