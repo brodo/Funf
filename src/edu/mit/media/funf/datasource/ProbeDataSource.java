@@ -37,12 +37,18 @@ public class ProbeDataSource extends StartableDataSource {
     @Override
     protected void onStart() {
         source.registerListener(delegator);
+        if(source instanceof Probe.Base){
+            ((Probe.Base)source).start();
+        }
     }
     
     @Override
     protected void onStop() {
         if (source instanceof ContinuousProbe) {
             ((ContinuousProbe) source).unregisterListener(delegator);
+        }
+        if (source instanceof Probe.Base){
+            ((Probe.Base)source).stop();
         }
     }
 }
