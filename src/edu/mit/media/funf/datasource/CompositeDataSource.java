@@ -42,12 +42,12 @@ public class CompositeDataSource extends StartableDataSource {
     private boolean isEnabled = false;
 
 
+
+
     protected void ensureIsEnabled() {
         if (!isEnabled) {
-            if (filter == null) {
-                filter = delegator;
-            }
-            source.setListener(filter);    
+            delegator = filter;
+            source.setListener(filter);
             isEnabled = true;
         }
     }
