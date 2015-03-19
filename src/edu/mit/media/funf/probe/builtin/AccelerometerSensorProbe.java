@@ -24,9 +24,12 @@
 package edu.mit.media.funf.probe.builtin;
 
 import android.hardware.Sensor;
+import android.util.Log;
+
 import edu.mit.media.funf.probe.Probe.PassiveProbe;
 import edu.mit.media.funf.probe.Probe.RequiredFeatures;
 import edu.mit.media.funf.probe.builtin.ProbeKeys.AccelerometerSensorKeys;
+import edu.mit.media.funf.util.LogUtil;
 
 @RequiredFeatures("android.hardware.sensor.accelerometer")
 public class AccelerometerSensorProbe extends SensorProbe implements PassiveProbe, AccelerometerSensorKeys {
@@ -42,5 +45,17 @@ public class AccelerometerSensorProbe extends SensorProbe implements PassiveProb
 				X, Y, Z
 		};
 	}
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(LogUtil.TAG, "Accelerometer Sensor Probe started");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LogUtil.TAG, "Accelerometer Sensor Probe stopped");
+    }
 
 }

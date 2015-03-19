@@ -24,7 +24,7 @@ import java.util.Map;
  * Time: 13:58
  * To change this template use File | Settings | File Templates.
  */
-public class RestPipeline implements Pipeline{
+public class RESTPipeline implements Pipeline{
     @Configurable
     protected List<StartableDataSource> data = new ArrayList<StartableDataSource>();
 

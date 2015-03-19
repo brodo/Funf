@@ -260,14 +260,22 @@ public class ConfigRewriteUtil {
         if (scheduleObj.has(PROBE) && 
                 ALARM_PROBE.equals(scheduleObj.get(PROBE).getAsString())) {
             renameJsonObjectKey(scheduleObj, "strict", "exact");
-            if (scheduleObj.has(DURATION_FIELD_NAME))
-                duration = scheduleObj.remove(DURATION_FIELD_NAME).getAsDouble();
         }
+        // ktkarhu: moved out from if block
+        if (scheduleObj.has(DURATION_FIELD_NAME))
+            duration = scheduleObj.remove(DURATION_FIELD_NAME).getAsDouble();
+
 
         JsonElement filtersEl = null;
         if (scheduleObj.has(FILTER)) {
             filtersEl = scheduleObj.remove(FILTER);
         }
+        /*
+        // ktkarhu: take filter from baseobj instead
+        if (baseObj.has(FILTER)) {
+            filtersEl = baseObj.remove(FILTER);
+        }
+        */
 
         // If baseObj is itself a schedule object (i.e this is a nested schedule), 
         // a "@trigger" annotation would provide the action to be performed by
@@ -277,7 +285,10 @@ public class ConfigRewriteUtil {
         if (baseObj.has(TRIGGER)) {
             triggerObj = baseObj.remove(TRIGGER).getAsJsonObject();
         }
-        
+        // ktkarhu: similarly, if this is a nested schedule, and if there is duration element for outer schedule move it to datasource obj
+        if(baseObj.has(DURATION_FIELD_NAME))
+            dataSourceObj.add(DURATION_FIELD_NAME, baseObj.remove(DURATION_FIELD_NAME));
+
         // To select the action to be performed whenever this schedule object fires:
         // 1. First check if the baseObj is really a probe or a data source. If
         //    it is empty except for the "@schedule" tag, then don't register any action.
@@ -305,7 +316,16 @@ public class ConfigRewriteUtil {
                     actionObj.addProperty(TYPE, START_DS_ACTION);
                 }
             }
-            actionObj.add(TARGET_FIELD_NAME, baseObj);    
+            actionObj.add(TARGET_FIELD_NAME, baseObj);
+        /* old testing code
+        JsonObject targetObj = new JsonObject();
+        targetObj.add(PROBE, baseObj.remove(PROBE));
+        actionObj.add(TARGET_FIELD_NAME, targetObj);
+        //ktkarhu: save possible remaining elements (such as duration) for surrounding schedule
+        for (Map.Entry<String, JsonElement> e: baseObj.entrySet())
+            dataSourceObj.add(e.getKey(), e.getValue());
+        */
+
         }
 
         dataSourceObj.add(SOURCE_FIELD_NAME, scheduleObj);
@@ -388,9 +408,9 @@ public class ConfigRewriteUtil {
             // probe parameters.
             dataSourceObj.add(SOURCE_FIELD_NAME, baseObj);
             return dataSourceObj;
-        } else {
-            return baseObj;
         }
+        else
+            return baseObj;
     }
     
     /**

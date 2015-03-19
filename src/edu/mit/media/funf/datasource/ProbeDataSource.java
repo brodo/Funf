@@ -38,15 +38,19 @@ public class ProbeDataSource extends StartableDataSource {
     protected void onStart() {
         source.registerListener(delegator);
         if(source instanceof Probe.Base){
+            // ktkarhu: when Pipeline is initialized this gets called, through calling start probe gets also enabled and then started. Why probe is started outside Alarm cycle? Won't alarm cause a second start?
             ((Probe.Base)source).start();
         }
     }
     
     @Override
     protected void onStop() {
+        // why listener (DataCollector through delegator) is unregistered for continuous probes and thus they are also disabled at stop?
+        /*
         if (source instanceof ContinuousProbe) {
             ((ContinuousProbe) source).unregisterListener(delegator);
         }
+        */
         if (source instanceof Probe.Base){
             ((Probe.Base)source).stop();
         }

@@ -226,7 +226,8 @@ public class AccelerometerFeaturesProbe extends Base implements ContinuousProbe,
 	    	freqBandIdx[i] = Math.round((float)freqBandEdges[i]*((float)fftSize/(float)SENSOR_MAX_RATE));
 	    }
 	    listener = new AccelerometerListener();
-	    getGson().fromJson("{}", AccelerometerSensorProbe.class).registerPassiveListener(listener);
+	    // ktkarhu fixed cache key to match the one used in first time instantation
+        getGson().fromJson("{\"@type\":\"edu.mit.media.funf.probe.builtin.AccelerometerSensorProbe\"}", AccelerometerSensorProbe.class).registerPassiveListener(listener);
 		// TODO: Register listener for accelerometer probe
 	}
 
@@ -234,7 +235,9 @@ public class AccelerometerFeaturesProbe extends Base implements ContinuousProbe,
 	protected void onStart() {
 		super.onStart();
 		reset();
-		getGson().fromJson(DEFAULT_CONFIG, AccelerometerSensorProbe.class).registerListener(listener);
+        // ktkarhu fixed cache key to match the one used in first time instantation
+        getGson().fromJson("{\"@type\":\"edu.mit.media.funf.probe.builtin.AccelerometerSensorProbe\"}", AccelerometerSensorProbe.class).registerPassiveListener(listener);
+		//getGson().fromJson(DEFAULT_CONFIG, AccelerometerSensorProbe.class).registerListener(listener);
 	}
 
 	@Override
