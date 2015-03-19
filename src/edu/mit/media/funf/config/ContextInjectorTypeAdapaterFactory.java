@@ -70,7 +70,7 @@ public class ContextInjectorTypeAdapaterFactory implements TypeAdapterFactory {
 	
 				@Override
 				public T read(JsonReader in) throws IOException {
-					T value = delegateAdapter.read(in);
+                    T value = delegateAdapter.read(in);
 					if (value != null) {
 						try {
 							Field contextField = AnnotationUtil.getField(CONTEXT_FIELD, value.getClass());

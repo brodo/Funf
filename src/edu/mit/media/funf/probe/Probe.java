@@ -315,6 +315,9 @@ public interface Probe {
 			@Override
 			protected void start(Base probe) {
 				// Nothing
+                // ktkarhu: shouldn't we call onStart so that scheduler that has interval specified
+                // and no duration would work properly, i.e. AlarmProbe gets several consecutive starts
+                probe.onStart();
 			}
 
 			@Override
@@ -323,7 +326,8 @@ public interface Probe {
 					probe.state = ENABLED;
 					probe.onStop();
 					probe.notifyStateChange(this);
-					probe.unregisterAllListeners();
+					// ktkarhu: why listeners are unregistered and thus probe gets disabled?
+                    //probe.unregisterAllListeners();
 					if (probe.lock != null && probe.lock.isHeld()) {
 						probe.lock.release();
 						probe.lock = null;
@@ -457,9 +461,11 @@ public interface Probe {
 					listener.onDataCompleted(getConfig(), checkpoint);
 				}
 				// If no one is listening, stop using device resources
-				if (dataListeners.isEmpty()) {
+				/* ktkarhu: why we stop so aggressively?
+                if (dataListeners.isEmpty()) {
 					stop();
 				}
+				*/
 				if (passiveDataListeners.isEmpty()) {
 					disable();
 				}
@@ -478,7 +484,9 @@ public interface Probe {
 		public void registerPassiveListener(DataListener... listeners) {
 			if (listeners != null) {
 				for (DataListener listener : listeners) {
-					dataListeners.add(listener);
+					// ktkarhu: changed to use passiveDataListeners
+                    //dataListeners.add(listener);
+                    passiveDataListeners.add(listener);
 				}
 				enable();
 			}
@@ -488,21 +496,15 @@ public interface Probe {
 			if (listeners != null) {
 				JsonElement checkpoint = getCheckpointIfContinuable();
 				for (DataListener listener : listeners) {
-					dataListeners.remove(listener);
+                    // ktkarhu: changed to use passiveDataListeners
+					//dataListeners.remove(listener);
+                    passiveDataListeners.remove(listener);
 					listener.onDataCompleted(getConfig(), checkpoint);
 				}
 				// If no one is listening, stop using device resources
 				if (dataListeners.isEmpty() && passiveDataListeners.isEmpty()) {
 					disable();
 				}
-			}
-		}
-
-		protected void unregisterAllPassiveListeners() {
-			synchronized (passiveDataListeners) {
-				DataListener[] listeners = new DataListener[passiveDataListeners.size()];
-				passiveDataListeners.toArray(listeners);
-				unregisterPassiveListener(listeners);
 			}
 		}
 

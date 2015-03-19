@@ -139,7 +139,8 @@ public class DefaultRuntimeTypeAdapterFactory<E> implements RuntimeTypeAdapterFa
 				@Override
 				public T read(JsonReader in) throws IOException {
 					// TODO: need to handle null
-					JsonElement el = Streams.parse(in);
+                    JsonElement el = Streams.parse(in);
+
 					Class<? extends T> runtimeType = getRuntimeType(el, type);
 					if (runtimeType == null) {
 						throw new ParseException("RuntimeTypeAdapter: Unable to parse runtime type.");
@@ -152,7 +153,6 @@ public class DefaultRuntimeTypeAdapterFactory<E> implements RuntimeTypeAdapterFa
 						typeObject.addProperty(TYPE, el.getAsString());
 						el = typeObject;
 					}
-					
 					return delegate.read(new JsonTreeReader(el));
 				}
 				

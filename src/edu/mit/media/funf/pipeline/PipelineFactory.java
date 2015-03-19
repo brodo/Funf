@@ -45,6 +45,8 @@ import edu.mit.media.funf.config.DefaultRuntimeTypeAdapterFactory;
 import edu.mit.media.funf.config.RuntimeTypeAdapterFactory;
 import edu.mit.media.funf.util.LogUtil;
 
+import static edu.mit.media.funf.util.LogUtil.TAG;
+
 public class PipelineFactory implements RuntimeTypeAdapterFactory {
 
     private RuntimeTypeAdapterFactory delegate;

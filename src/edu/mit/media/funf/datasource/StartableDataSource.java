@@ -68,8 +68,13 @@ public class StartableDataSource implements Startable, DataSource {
 
     @Override
     public final void start() {
-        if (currentState == State.ON) 
+        // ktkarhu: Changed this for scheduler to work properly. If interval is specified, and
+        // duration is not, then probe should get consecutive start calls from AlarmProbe through
+        // the Adapter, and thus we should pass on start calls even if already started.
+        /*
+        if (currentState == State.ON)
             return;
+        */
         currentState = State.ON;
         onStart();
     }
